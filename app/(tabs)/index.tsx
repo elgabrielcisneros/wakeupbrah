@@ -7,18 +7,17 @@ import "../styles/global.css";
 export default function TabOneScreen() {
   return (
     <View style={styles.container}>
-     <FlatList data = {[
-        {
-          key: "1",
-          title: "Alarm 1",
-          time: "08:00 AM",
-        },
-     ]}
-     renderItem = {({item}) => (
-      <AlarmItem alarm={item}/>
-    )}
-     />
-
+      {/* When we have content, show the list */}
+      <FlatList
+        data={[
+          {
+            key: "1",
+            title: "Alarm 1",
+            time: "08:00 AM",
+          },
+        ]}
+        renderItem={({ item }) => <AlarmItem alarm={item} />}
+      />
     </View>
   );
 }
@@ -26,14 +25,6 @@ export default function TabOneScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
+    padding: 16,
   },
 });
