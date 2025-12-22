@@ -57,10 +57,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
     shadowColor: "transparent",
     elevation: 0,
-    flex: 1,
   },
   headerFontStyle: {
     fontSize: 30,
     fontWeight: "bold",
+    color: "#64a7ffff",
   },
 });
