@@ -6,7 +6,7 @@ import { Text, View } from "@/components/Themed";
 export default function TabTwoScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Made with ❤️ by ThePixelKnight</Text>
+      <Text style={styles.title}>Made with ❤️ by elgabrielcisneros</Text>
       <EditScreenInfo path="app/(tabs)/two.tsx" />
     </View>
   );
@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   title: {
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 18,
+    fontFamily: "GoogleSansCode",
   },
   separator: {
     marginVertical: 30,

@@ -3,21 +3,19 @@ import { StyleSheet } from "react-native";
 import "../../app/styles/global.css";
 
 export default function AlarmItem({ alarm }: any) {
-
-
   return (
     <View style={styles.cardContainer}>
       <Text
-        style={styles.alarmTitle}
-        className="text-3xl font-bold"
+        style={{ fontFamily: "Roboto" }}
+        className="text-3xl"
         lightColor="#000000ff"
         darkColor="rgba(255, 255, 255, 1)"
       >
         {alarm.title}
       </Text>
       <Text
-      className="text-xl"
-        style={styles.alarmTime}
+        className="text-xl"
+        style={[styles.alarmTime, { fontFamily: "GoogleSansCode" }]}
         lightColor="#000000ff"
         darkColor="rgba(255, 255, 255, 1)"
       >
@@ -35,10 +33,5 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 16,
   },
-  alarmTitle:{
-    fontFamily: "Roboto-Regular",
-  },
-  alarmTime:{
-    fontFamily: "Roboto-Regular",
-  },
+  alarmTime: {},
 });

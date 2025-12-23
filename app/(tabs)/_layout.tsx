@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     elevation: 0,
   },
   headerFontStyle: {
-    fontSize: 30,
+    fontSize: 35,
     fontWeight: "bold",
     color: "#64a7ffff",
   },

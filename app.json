@@ -31,7 +31,57 @@
     },
     "plugins": [
       "expo-router",
-      "expo-font"
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Roboto-Regular.ttf",
+            "./assets/fonts/GoogleSansCode-Regular.ttf"
+          ],
+          "android": {
+            "fonts": [
+              {
+                "fontFamily": "Roboto",
+                "fontDefinitions": [
+                  {
+                    "path": "./assets/fonts/Roboto-Bold.ttf",
+                    "weight": "700"
+                  },
+                  {
+                    "path": "./assets/fonts/Roboto-Italic.ttf",
+                    "weight": "400",
+                    "style": "italic"
+                  },
+                  {
+                    "path": "./assets/fonts/Roboto-BoldItalic.ttf",
+                    "weight": "600",
+                    "style": "bold-italic"
+                  }
+                ]
+              },
+              {
+                "fontFamily": "GoogleSansCode",
+                "fontDefinitions": [
+                  {
+                    "path": "./assets/fonts/GoogleSansCode-Bold.ttf",
+                    "weight": "700"
+                  },
+                  {
+                    "path": "./assets/fonts/GoogleSansCode-Italic.ttf",
+                    "weight": "400",
+                    "style": "italic"
+                  },
+                  {
+                    "path": "./assets/fonts/GoogleSansCode-BoldItalic.ttf",
+                    "weight": "600",
+                    "style": "bold-italic"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
