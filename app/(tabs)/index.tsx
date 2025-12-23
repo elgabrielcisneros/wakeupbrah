@@ -1,12 +1,23 @@
-import { StyleSheet } from "react-native";
-
-import EditScreenInfo from "@/components/EditScreenInfo";
-import { Text, View } from "@/components/Themed";
+import AlarmItem from "@/components/common/AlarmItem";
+import { View } from "@/components/Themed";
+import React from "react";
+import { FlatList, StyleSheet } from "react-native";
+import "../styles/global.css";
 
 export default function TabOneScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Hello World</Text>
+    <View className="flex-1 p-5">
+      {/* When we have content, show the list */}
+      <FlatList
+        data={[
+          {
+            key: "1",
+            title: "Alarm",
+            time: "05:00 AM",
+          },
+        ]}
+        renderItem={({ item }) => <AlarmItem alarm={item} />}
+      />
     </View>
   );
 }
@@ -14,16 +25,6 @@ export default function TabOneScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
+    padding: 16,
   },
 });

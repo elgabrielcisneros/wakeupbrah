@@ -7,6 +7,7 @@ import { useClientOnlyValue } from "@/components/useClientOnlyValue";
 import { useColorScheme } from "@/components/useColorScheme";
 import Colors from "@/constants/Colors";
 import { StyleSheet } from "react-native";
+import "../styles/global.css";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -25,6 +26,7 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         // Disable the static render of the header on web
         // to prevent a hydration error in React Navigation v6.
+        tabBarInactiveTintColor: Colors[colorScheme ?? "light"].tabIconDefault,
         headerShown: useClientOnlyValue(false, true),
         headerStyle: styles.header,
         headerTitleStyle: styles.headerFontStyle,
@@ -57,10 +59,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
     shadowColor: "transparent",
     elevation: 0,
-    flex: 1,
   },
   headerFontStyle: {
     fontSize: 30,
     fontWeight: "bold",
+    color: "#64a7ffff",
   },
 });
