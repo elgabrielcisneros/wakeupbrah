@@ -6,7 +6,7 @@ import { Text, View } from "@/components/Themed";
 export default function TabTwoScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Made with ❤️ by ThePixelKnight</Text>
+      <Text style={[styles.title, { fontFamily: "Roboto" }]}>Made with ❤️ by elgabrielcisneros</Text>
       <EditScreenInfo path="app/(tabs)/two.tsx" />
     </View>
   );
