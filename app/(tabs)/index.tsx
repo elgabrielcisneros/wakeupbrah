@@ -6,14 +6,14 @@ import "../styles/global.css";
 
 export default function TabOneScreen() {
   return (
-    <View style={styles.container}>
+    <View className="flex-1 p-5">
       {/* When we have content, show the list */}
       <FlatList
         data={[
           {
             key: "1",
-            title: "Alarm 1",
-            time: "08:00 AM",
+            title: "Alarm",
+            time: "05:00 AM",
           },
         ]}
         renderItem={({ item }) => <AlarmItem alarm={item} />}

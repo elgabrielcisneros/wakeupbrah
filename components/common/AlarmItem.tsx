@@ -9,12 +9,14 @@ export default function AlarmItem({ alarm }: any) {
     <View style={styles.cardContainer}>
       <Text
         style={styles.alarmTitle}
+        className="text-3xl font-bold"
         lightColor="#000000ff"
         darkColor="rgba(255, 255, 255, 1)"
       >
         {alarm.title}
       </Text>
       <Text
+      className="text-xl"
         style={styles.alarmTime}
         lightColor="#000000ff"
         darkColor="rgba(255, 255, 255, 1)"
@@ -35,11 +37,8 @@ const styles = StyleSheet.create({
   },
   alarmTitle:{
     fontFamily: "Roboto-Regular",
-    fontSize: 26,
-    fontWeight: "bold",
   },
   alarmTime:{
     fontFamily: "Roboto-Regular",
-    fontSize: 19,
   },
 });
