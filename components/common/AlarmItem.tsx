@@ -15,7 +15,7 @@ export default function AlarmItem({ alarm }: any) {
       </Text>
       <Text
         className="text-xl"
-        style={[styles.alarmTime, { fontFamily: "GoogleSansCode" }]}
+        style={{ fontFamily: "GoogleSansCode" }}
         lightColor="#000000ff"
         darkColor="rgba(255, 255, 255, 1)"
       >
@@ -33,5 +33,4 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 16,
   },
-  alarmTime: {},
 });
