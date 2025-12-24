@@ -1,23 +1,32 @@
 import AlarmItem from "@/components/common/AlarmItem";
+import EmptyContent from "@/components/common/EmptyContent";
 import { View } from "@/components/Themed";
 import React from "react";
 import { FlatList, StyleSheet } from "react-native";
 import "../styles/global.css";
 
 export default function TabOneScreen() {
+  const alarms = [
+    {
+      key: 1,
+      title: "Alarm",
+      time: "05:00 AM",
+    },
+  ];
+
   return (
     <View className="flex-1 p-5">
       {/* When we have content, show the list */}
-      <FlatList
-        data={[
-          {
-            key: "1",
-            title: "Alarm",
-            time: "05:00 AM",
-          },
-        ]}
-        renderItem={({ item }) => <AlarmItem alarm={item} />}
-      />
+      {alarms.length > 0 ? (
+        <FlatList
+          data={alarms}
+          renderItem={({ item }) => <AlarmItem alarm={item} />}
+          ListEmptyComponent={<EmptyContent />}
+          contentContainerStyle={alarms.length === 0 ? styles.container : {}}
+        />
+      ) : (
+        <EmptyContent />
+      )}
     </View>
   );
 }

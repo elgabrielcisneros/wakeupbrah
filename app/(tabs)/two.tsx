@@ -1,13 +1,12 @@
-import { StyleSheet } from "react-native";
-
-import EditScreenInfo from "@/components/EditScreenInfo";
 import { Text, View } from "@/components/Themed";
+import { StyleSheet } from "react-native";
 
 export default function TabTwoScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Made with ❤️ by elgabrielcisneros</Text>
-      <EditScreenInfo path="app/(tabs)/two.tsx" />
+      <Text className="text-center" style={styles.title}>
+        Made with ❤️ by elgabrielcisneros
+      </Text>
     </View>
   );
 }
