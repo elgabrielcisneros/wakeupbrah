@@ -1,6 +1,6 @@
 import { Text, View } from "@/components/Themed";
 import { StyleSheet } from "react-native";
-import "../../app/styles/global.css";
+import "../../styles/global.css";
 
 export default function AlarmItem({ alarm }: any) {
   return (
