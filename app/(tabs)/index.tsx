@@ -1,18 +1,13 @@
 import AlarmItem from "@/components/common/AlarmItem";
 import EmptyContent from "@/components/common/EmptyContent";
 import { View } from "@/components/Themed";
+import { useAlarmStore } from "@/store/useAlarmStore";
 import React from "react";
 import { FlatList, StyleSheet } from "react-native";
-import "../styles/global.css";
+import "../../styles/global.css";
 
 export default function TabOneScreen() {
-  const alarms = [
-    {
-      key: 1,
-      title: "Alarm",
-      time: "05:00 AM",
-    },
-  ];
+  const alarms = useAlarmStore((state) => state.alarms);
 
   return (
     <View className="flex-1 p-5">
