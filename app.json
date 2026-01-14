@@ -85,6 +85,13 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "62e60af8-0161-4662-bafa-2290663b127a"
+      }
+    },
+    "owner": "brah-tek"
   }
 }

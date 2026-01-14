@@ -1,11 +1,12 @@
 import { Text, View } from "@/components/Themed";
 import Ionicons from "@react-native-vector-icons/ionicons";
-import { useNavigation } from "expo-router";
+import { useRouter } from "expo-router";
 import { Pressable, StyleSheet } from "react-native";
 import "../../styles/global.css";
 
 export default function EmptyContent() {
-  const navigation = useNavigation();
+  const router = useRouter();
+
   return (
     <View className="flex-1 justify-center">
       <View>
@@ -13,7 +14,7 @@ export default function EmptyContent() {
           Add a new alarm ⏰
         </Text>
         <View className="flex items-center justify-center mt-2">
-          <Pressable>
+          <Pressable onPress={() => router.navigate("/pages/add-alarm")}>
             <Ionicons name="add" size={40} color="#64a7ffff" />
           </Pressable>
         </View>
