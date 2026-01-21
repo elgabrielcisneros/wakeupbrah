@@ -7,7 +7,7 @@ import { useClientOnlyValue } from "@/components/useClientOnlyValue";
 import { useColorScheme } from "@/components/useColorScheme";
 import Colors from "@/constants/Colors";
 import { StyleSheet } from "react-native";
-import "../styles/global.css";
+import "../../styles/global.css";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     elevation: 0,
   },
   headerFontStyle: {
-    fontSize: 32,
+    fontSize: 34,
     fontWeight: "bold",
     color: "#64a7ffff",
   },

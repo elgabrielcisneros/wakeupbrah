@@ -1,8 +1,9 @@
 import { Text, View } from "@/components/Themed";
 import { StyleSheet } from "react-native";
-import "../../app/styles/global.css";
+import { Alarm } from "../../infraestructure/types/alarm";
+import "../../styles/global.css";
 
-export default function AlarmItem({ alarm }: any) {
+export default function AlarmItem({ alarm }: { alarm: Alarm }) {
   return (
     <View style={styles.cardContainer}>
       <Text
@@ -19,7 +20,7 @@ export default function AlarmItem({ alarm }: any) {
         lightColor="#000000ff"
         darkColor="rgba(255, 255, 255, 1)"
       >
-        {alarm.time}
+        {alarm.time.toLocaleString()}
       </Text>
     </View>
   );
