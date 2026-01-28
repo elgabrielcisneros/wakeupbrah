@@ -1,3 +1,4 @@
+import TimePicker from "@/components/common/TimePicker";
 import { Text, View } from "@/components/Themed";
 import Ionicons from "@react-native-vector-icons/ionicons";
 import React from "react";
@@ -22,6 +23,7 @@ export default function AddAlarm() {
           New Alarm
         </Text>
       </View>
+      <TimePicker />
     </SafeAreaView>
   );
 }
