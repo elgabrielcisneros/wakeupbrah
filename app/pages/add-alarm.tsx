@@ -1,14 +1,16 @@
 import TimePicker from "@/components/common/TimePicker";
 import { Text, View } from "@/components/Themed";
 import Ionicons from "@react-native-vector-icons/ionicons";
-import React from "react";
+import React, { useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import "../../styles/global.css";
 
 export default function AddAlarm() {
+  const [time, setTime] = useState(new Date());
+  const insets = useSafeAreaInsets();
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <View style={{ paddingTop: insets.top + 10 }}>
       <View style={styles.header} className="flex items-center justify-center ">
         <View style={styles.cancelButtonContainer}>
           <Pressable>
@@ -24,15 +26,11 @@ export default function AddAlarm() {
         </Text>
       </View>
       <TimePicker />
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    paddingTop: 14,
-  },
   header: {
     flexDirection: "row",
     alignItems: "center",
