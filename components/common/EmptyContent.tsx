@@ -10,7 +10,7 @@ export default function EmptyContent() {
   return (
     <View className="flex-1 justify-center">
       <View>
-        <Text className="text-center text-4xl" style={styles.title}>
+        <Text className="text-center text-4xl font-bold" style={styles.title}>
           Add a new alarm ⏰
         </Text>
         <View className="flex items-center justify-center mt-2">
@@ -25,8 +25,8 @@ export default function EmptyContent() {
 
 const styles = StyleSheet.create({
   title: {
-    fontFamily: "Roboto",
     color: "#c5c5c5d2",
     lineHeight: 36,
+    fontStyle: "normal",
   },
 });
