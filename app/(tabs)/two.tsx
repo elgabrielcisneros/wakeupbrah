@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontFamily: "GoogleSansCode",
+    fontFamily: "Manrope",
+    fontWeight: "bold",
   },
   separator: {
     marginVertical: 30,
