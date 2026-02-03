@@ -1,16 +1,16 @@
+import NameRepetitionCard from "@/components/common/NameRepetitionCard";
 import TimePicker from "@/components/common/TimePicker";
 import { Text, View } from "@/components/Themed";
 import Ionicons from "@react-native-vector-icons/ionicons";
-import React, { useState } from "react";
+import React from "react";
 import { Pressable, StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import "../../styles/global.css";
 
 export default function AddAlarm() {
-  const [time, setTime] = useState(new Date());
   const insets = useSafeAreaInsets();
   return (
-    <View style={{ paddingTop: insets.top + 10 }}>
+    <View style={{ paddingTop: insets.top + 10 }} className="p-4">
       <View style={styles.header} className="flex items-center justify-center ">
         <View style={styles.cancelButtonContainer}>
           <Pressable>
@@ -21,11 +21,15 @@ export default function AddAlarm() {
             />
           </Pressable>
         </View>
-        <Text className="text-2xl font-bold" style={styles.title}>
+        <Text className="text-2xl" style={styles.title}>
           New Alarm
         </Text>
       </View>
-      <TimePicker />
+      <View className="flex items-center justify-center mt-10">
+        <TimePicker />
+      </View>
+
+      <NameRepetitionCard />
     </View>
   );
 }
@@ -37,13 +41,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   title: {
-    color: "white",
+    fontFamily: "Manrope",
+    fontWeight: "bold",
   },
   cancelButtonContainer: {
     position: "absolute",
     left: 10,
   },
   cancelButton: {
-    color: "#64a7ffff",
+    color: "white",
   },
 });
