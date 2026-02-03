@@ -1,4 +1,5 @@
 import NameRepetitionCard from "@/components/common/NameRepetitionCard";
+import SoundCard from "@/components/common/SoundCard";
 import TimePicker from "@/components/common/TimePicker";
 import { Text, View } from "@/components/Themed";
 import Ionicons from "@react-native-vector-icons/ionicons";
@@ -39,6 +40,10 @@ export default function AddAlarm() {
 
       <View className="mt-6 m-4">
         <Text style={styles.challengesTitle}>Wake-up challenges</Text>
+      </View>
+
+      <View>
+        <SoundCard />
       </View>
     </View>
   );
