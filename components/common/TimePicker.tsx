@@ -9,14 +9,12 @@ export default function TimePicker() {
 
   return (
     <View>
-      <View className="flex items-center justify-center mt-10">
-        <DatePicker
-          date={time}
-          onDateChange={setTime}
-          mode="time"
-          style={styles.datePicker}
-        />
-      </View>
+      <DatePicker
+        date={time}
+        onDateChange={setTime}
+        mode="time"
+        style={styles.datePicker}
+      />
     </View>
   );
 }
@@ -25,6 +23,5 @@ const styles = StyleSheet.create({
   datePicker: {
     width: 400,
     height: 200,
-    color: "#64a7ffff",
   },
 });
