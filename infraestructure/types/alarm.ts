@@ -24,7 +24,7 @@ export type Day = "mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun";
 
 export type RepeatingPattern = "daily" | "weekly";
 
-export type ChallengeType = "math" | "qr" | "walk";
+export type ChallengeType = "math" | "qr" | "walk" | "map" | "type";
 
 export type Volume = {
   value: number;

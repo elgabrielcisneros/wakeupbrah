@@ -1,4 +1,6 @@
+import ChallengeList from "@/components/common/ChallengeList";
 import NameRepetitionCard from "@/components/common/NameRepetitionCard";
+import SaveButton from "@/components/common/SaveButton";
 import SoundCard from "@/components/common/SoundCard";
 import TimePicker from "@/components/common/TimePicker";
 import { Text, View } from "@/components/Themed";
@@ -39,11 +41,15 @@ export default function AddAlarm() {
       </View>
 
       <View className="mt-6 m-4">
-        <Text style={styles.challengesTitle}>Wake-up challenges</Text>
+        <ChallengeList />
       </View>
 
-      <View>
+      <View className="mt-6">
         <SoundCard />
+      </View>
+
+      <View className="mt-10">
+        <SaveButton />
       </View>
     </View>
   );
@@ -65,11 +71,5 @@ const styles = StyleSheet.create({
   },
   cancelButton: {
     color: "white",
-  },
-  challengesTitle: {
-    fontFamily: "Manrope",
-    fontWeight: "bold",
-    fontSize: 18,
-    color: "#94A3B8",
   },
 });

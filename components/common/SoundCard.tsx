@@ -8,7 +8,7 @@ export default function SoundCard() {
   return (
     <View style={styles.card} className="flex items-center justify-center p-3">
       <View
-        className="flex-row items-center justify-between w-full mt-6 mb-4"
+        className="flex-row items-center justify-between w-full mt-3 mb-3"
         style={styles.soundContainer}
       >
         <Text className="mr-4" style={styles.label}>
