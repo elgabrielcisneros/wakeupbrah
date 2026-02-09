@@ -1,13 +1,25 @@
-import { Text, View } from "@/components/Themed";
-import React from "react";
-import { Pressable, StyleSheet } from "react-native";
+import { Text } from "@/components/Themed";
+import { useState } from "react";
+import { Pressable, StyleSheet, View } from "react-native";
+import Animated from "react-native-reanimated";
+
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 export default function SaveButton() {
+  const [pressed, setPressed] = useState(false);
+
   return (
     <View style={styles.container}>
-      <Pressable style={styles.button}>
+      <AnimatedPressable
+        style={[
+          pressed ? styles.buttonPressed : styles.button,
+          { transitionDuration: 100 },
+        ]}
+        onPressIn={() => setPressed(true)}
+        onPressOut={() => setPressed(false)}
+      >
         <Text style={styles.label}>Save</Text>
-      </Pressable>
+      </AnimatedPressable>
     </View>
   );
 }
@@ -32,5 +44,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "white",
     fontSize: 24,
+  },
+  buttonPressed: {
+    backgroundColor: "#5f5f5f",
+    borderRadius: 30,
+    padding: 10,
+    width: "100%",
+    height: 60,
+    alignItems: "center",
+    justifyContent: "center",
+    transform: [{ scale: 0.95 }],
   },
 });
