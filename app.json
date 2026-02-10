@@ -37,7 +37,6 @@
         {
           "fonts": [
             "./assets/fonts/Roboto-Regular.ttf",
-
             "./assets/fonts/Manrope-Regular.ttf"
           ],
           "android": {
@@ -91,7 +90,8 @@
             ]
           }
         }
-      ]
+      ],
+      "expo-sqlite"
     ],
     "experiments": {
       "typedRoutes": true
