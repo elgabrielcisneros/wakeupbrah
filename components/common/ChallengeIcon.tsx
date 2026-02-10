@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
   },
   label: {
     fontFamily: "Manrope",
-    fontWeight: "bold",
     color: "#64748B",
     fontSize: 12,
     marginTop: 4,
