@@ -1,33 +1,75 @@
+import ChallengeList from "@/components/common/ChallengeList";
+import NameRepetitionCard from "@/components/common/NameRepetitionCard";
+import SaveButton from "@/components/common/SaveButton";
+import SoundCard from "@/components/common/SoundCard";
+import TimePicker from "@/components/common/TimePicker";
 import { Text, View } from "@/components/Themed";
 import Ionicons from "@react-native-vector-icons/ionicons";
+import { useRouter } from "expo-router";
 import React from "react";
 import { Pressable, StyleSheet } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import "../../styles/global.css";
 
 export default function AddAlarm() {
+  const insets = useSafeAreaInsets();
+  const router = useRouter();
+
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text className="text-4xl font-bold p-4 mt-20" style={styles.title}>
-          Add Alarm
+    <View style={{ paddingTop: insets.top + 10 }} className="p-4">
+      <View style={styles.header} className="flex items-center justify-center ">
+        <View style={styles.cancelButtonContainer}>
+          <Pressable onPress={() => router.back()}>
+            <Ionicons
+              name="chevron-back"
+              size={30}
+              style={styles.cancelButton}
+            />
+          </Pressable>
+        </View>
+        <Text className="text-2xl" style={styles.title}>
+          New Alarm
         </Text>
-        <Pressable style={styles.cancelButton}>
-          <Ionicons name="close" size={24} color="black" />
-        </Pressable>
+      </View>
+
+      <View className="flex items-center justify-center mt-10">
+        <TimePicker />
+      </View>
+
+      <View className="mt-10">
+        <NameRepetitionCard />
+      </View>
+
+      <View className="mt-6 m-4">
+        <ChallengeList />
+      </View>
+
+      <View className="mt-6">
+        <SoundCard />
+      </View>
+
+      <View className="mt-10">
+        <SaveButton />
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {},
   header: {
-    margin: 8,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  title: {},
-  cancelButton: {
+  title: {
+    fontFamily: "Manrope",
+    fontWeight: "bold",
+  },
+  cancelButtonContainer: {
     position: "absolute",
-    right: 8,
-    top: 8,
+    left: 10,
+  },
+  cancelButton: {
+    color: "white",
   },
 });

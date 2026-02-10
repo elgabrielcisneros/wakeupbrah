@@ -1,0 +1,27 @@
+[
+  {
+    "id": "1",
+    "type": "qr",
+    "status": "not_started"
+  },
+  {
+    "id": "2",
+    "type": "walk",
+    "status": "not_started"
+  },
+  {
+    "id": "3",
+    "type": "math",
+    "status": "not_started"
+  },
+  {
+    "id": "4",
+    "type": "map",
+    "status": "not_started"
+  },
+  {
+    "id": "5",
+    "type": "type",
+    "status": "not_started"
+  }
+]

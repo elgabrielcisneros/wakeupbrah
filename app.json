@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "wakeupbrah",
-    "userInterfaceStyle": "automatic",
+    "userInterfaceStyle": "dark",
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/images/splash-icon.png",
@@ -22,7 +22,8 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.elgabrielcisneros.wakeupbrah"
     },
     "web": {
       "bundler": "metro",
@@ -36,10 +37,38 @@
         {
           "fonts": [
             "./assets/fonts/Roboto-Regular.ttf",
-            "./assets/fonts/GoogleSansCode-Regular.ttf"
+
+            "./assets/fonts/Manrope-Regular.ttf"
           ],
           "android": {
             "fonts": [
+              {
+                "fontFamily": "Manrope",
+                "fontDefinitions": [
+                  {
+                    "path": "./assets/fonts/Manrope-Bold.ttf",
+                    "weight": "700"
+                  },
+                  {
+                    "path": "./assets/fonts/Manrope-SemiBold.ttf",
+                    "weight": "600"
+                  },
+                  {
+                    "path": "./assets/fonts/Manrope-Medium.ttf",
+                    "weight": "500",
+                    "style": "medium"
+                  },
+                  {
+                    "path": "./assets/fonts/Manrope-Light.ttf",
+                    "weight": "300",
+                    "style": "light"
+                  },
+                  {
+                    "path": "./assets/fonts/Manrope-ExtraLight.ttf",
+                    "weight": "200"
+                  }
+                ]
+              },
               {
                 "fontFamily": "Roboto",
                 "fontDefinitions": [
@@ -54,25 +83,6 @@
                   },
                   {
                     "path": "./assets/fonts/Roboto-BoldItalic.ttf",
-                    "weight": "600",
-                    "style": "bold-italic"
-                  }
-                ]
-              },
-              {
-                "fontFamily": "GoogleSansCode",
-                "fontDefinitions": [
-                  {
-                    "path": "./assets/fonts/GoogleSansCode-Bold.ttf",
-                    "weight": "700"
-                  },
-                  {
-                    "path": "./assets/fonts/GoogleSansCode-Italic.ttf",
-                    "weight": "400",
-                    "style": "italic"
-                  },
-                  {
-                    "path": "./assets/fonts/GoogleSansCode-BoldItalic.ttf",
                     "weight": "600",
                     "style": "bold-italic"
                   }

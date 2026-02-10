@@ -16,7 +16,7 @@ export default function AlarmItem({ alarm }: { alarm: Alarm }) {
       </Text>
       <Text
         className="text-xl"
-        style={{ fontFamily: "GoogleSansCode" }}
+        style={{ fontFamily: "Roboto" }}
         lightColor="#000000ff"
         darkColor="rgba(255, 255, 255, 1)"
       >

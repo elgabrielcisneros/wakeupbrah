@@ -27,12 +27,14 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-    GoogleSansCode: require("../assets/fonts/GoogleSansCode-Regular.ttf"),
-    "GoogleSansCode-Bold": require("../assets/fonts/GoogleSansCode-Bold.ttf"),
-    "GoogleSansCode-Italic": require("../assets/fonts/GoogleSansCode-Italic.ttf"),
-    "GoogleSansCode-BoldItalic": require("../assets/fonts/GoogleSansCode-BoldItalic.ttf"),
     Roboto: require("../assets/fonts/Roboto-Regular.ttf"),
     "Roboto-Bold": require("../assets/fonts/Roboto-Bold.ttf"),
+    Manrope: require("../assets/fonts/Manrope-Regular.ttf"),
+    "Manrope-Bold": require("../assets/fonts/Manrope-Bold.ttf"),
+    "Manrope-SemiBold": require("../assets/fonts/Manrope-SemiBold.ttf"),
+    "Manrope-Medium": require("../assets/fonts/Manrope-Medium.ttf"),
+    "Manrope-Light": require("../assets/fonts/Manrope-Light.ttf"),
+    "Manrope-ExtraLight": require("../assets/fonts/Manrope-ExtraLight.ttf"),
     ...FontAwesome.font,
   });
 
@@ -62,7 +64,6 @@ function RootLayoutNav() {
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="pages/add-alarm" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: "modal" }} />
       </Stack>
     </ThemeProvider>
   );
