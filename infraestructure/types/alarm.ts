@@ -14,7 +14,6 @@ export type Alarm = {
   repeatingPattern: RepeatingPattern;
   challenge: Challenge;
   day: Day;
-  volume: Volume;
   status: AlarmStatus;
 };
 
@@ -26,10 +25,10 @@ export type RepeatingPattern = "daily" | "weekly";
 
 export type ChallengeType = "math" | "qr" | "walk" | "map" | "type";
 
-export type Volume = {
-  value: number;
-  muted: boolean;
-};
+// export type Volume = {
+//   value: number;
+//   muted: boolean;
+// };
 
 export type Challenge = {
   type: ChallengeType;
