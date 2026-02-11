@@ -7,7 +7,7 @@ import Animated from "react-native-reanimated";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-export default function SaveButton() {
+export default function SaveButton({ time }: { time: Date }) {
   const [pressed, setPressed] = useState(false);
   const router = useRouter();
 
@@ -20,7 +20,7 @@ export default function SaveButton() {
     addAlarm({
       id: generateId(),
       title: input,
-      time: new Date(),
+      time: time,
       challenge: {
         type: "math",
         status: "not_started",
