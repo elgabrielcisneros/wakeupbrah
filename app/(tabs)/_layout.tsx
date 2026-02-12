@@ -1,4 +1,3 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
 import { Tabs } from "expo-router";
 import React from "react";
@@ -12,12 +11,12 @@ import { StyleSheet } from "react-native";
 import "../../styles/global.css";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>["name"];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
+// function TabBarIcon(props: {
+//   name: React.ComponentProps<typeof FontAwesome>["name"];
+//   color: string;
+// }) {
+//   return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
+// }
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -46,7 +45,7 @@ export default function TabLayout() {
             return <AddButton />;
           },
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="clock-o" color={color} />
+            <Ionicons name="alarm-outline" color={color} size={28} />
           ),
         }}
       />
