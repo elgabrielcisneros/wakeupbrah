@@ -40,19 +40,20 @@ export default function RootLayout() {
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
-    if (error) throw error;
+    if (error) {
+      console.error("Font loading error:", error);
+      throw error;
+    }
   }, [error]);
-
   useEffect(() => {
+    console.log("Fonts loaded state:", loaded);
     if (loaded) {
       SplashScreen.hideAsync();
     }
   }, [loaded]);
-
   if (!loaded) {
     return null;
   }
-
   return <RootLayoutNav />;
 }
 
