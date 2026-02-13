@@ -26,15 +26,18 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-    Roboto: require("../assets/fonts/Roboto-Regular.ttf"),
-    "Roboto-Bold": require("../assets/fonts/Roboto-Bold.ttf"),
     Manrope: require("../assets/fonts/Manrope-Regular.ttf"),
     "Manrope-Bold": require("../assets/fonts/Manrope-Bold.ttf"),
     "Manrope-SemiBold": require("../assets/fonts/Manrope-SemiBold.ttf"),
     "Manrope-Medium": require("../assets/fonts/Manrope-Medium.ttf"),
     "Manrope-Light": require("../assets/fonts/Manrope-Light.ttf"),
     "Manrope-ExtraLight": require("../assets/fonts/Manrope-ExtraLight.ttf"),
+    Inter: require("../assets/fonts/Inter_18pt-Regular.ttf"),
+    "Inter-Bold": require("../assets/fonts/Inter_18pt-Bold.ttf"),
+    "Inter-SemiBold": require("../assets/fonts/Inter_18pt-SemiBold.ttf"),
+    "Inter-Italic": require("../assets/fonts/Inter_18pt-Italic.ttf"),
+    "Inter-Medium": require("../assets/fonts/Inter_18pt-Medium.ttf"),
+    "Inter-Light": require("../assets/fonts/Inter_18pt-Light.ttf"),
     ...FontAwesome.font,
   });
 
