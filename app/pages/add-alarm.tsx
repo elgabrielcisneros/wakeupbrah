@@ -16,6 +16,7 @@ export default function AddAlarm() {
   const router = useRouter();
 
   const [time, setTime] = useState(new Date());
+  const [title, setTitle] = useState("");
 
   return (
     <View style={{ paddingTop: insets.top + 10 }} className="p-4">
@@ -39,7 +40,7 @@ export default function AddAlarm() {
       </View>
 
       <View className="mt-10">
-        <NameRepetitionCard />
+        <NameRepetitionCard onTitleChange={setTitle} />
       </View>
 
       <View className="mt-6 m-4">
@@ -51,7 +52,7 @@ export default function AddAlarm() {
       </View>
 
       <View className="mt-10">
-        <SaveButton time={time} />
+        <SaveButton time={time} title={title} />
       </View>
     </View>
   );
