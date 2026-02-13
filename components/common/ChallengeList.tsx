@@ -37,7 +37,7 @@ export default function ChallengeList() {
               type: item.type,
               status: item.status,
             }}
-            onPress={handleChallengePress}
+            onSelect={handleChallengePress}
           />
         )}
       />
