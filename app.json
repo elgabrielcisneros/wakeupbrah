@@ -7,7 +7,7 @@
     "icon": "./assets/images/icon.png",
     "scheme": "wakeupbrah",
     "userInterfaceStyle": "dark",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "splash": {
       "image": "./assets/images/splash-icon.png",
       "resizeMode": "contain",
@@ -36,12 +36,41 @@
         "expo-font",
         {
           "fonts": [
-            "./assets/fonts/Roboto-Regular.ttf",
-
-            "./assets/fonts/Manrope-Regular.ttf"
+            "./assets/fonts/Manrope-Regular.ttf",
+            "./assets/fonts/Inter_18pt-Regular.ttf"
           ],
           "android": {
             "fonts": [
+              {
+                "fontFamily": "Inter",
+                "fontDefinitions": [
+                  {
+                    "path": "./assets/fonts/Inter_18pt-Bold.ttf",
+                    "weight": "700",
+                    "style": "bold"
+                  },
+                  {
+                    "path": "./assets/fonts/Inter_18pt-Italic.ttf",
+                    "weight": "400",
+                    "style": "italic"
+                  },
+                  {
+                    "path": "./assets/fonts/Inter_18pt-Light.ttf",
+                    "weight": "200",
+                    "style": "light"
+                  },
+                  {
+                    "path": "./assets/fonts/Inter_18pt-Medium.ttf",
+                    "weight": "500",
+                    "style": "medium"
+                  },
+                  {
+                    "path": "./assets/fonts/Inter_18pt-SemiBold.ttf",
+                    "weight": "600",
+                    "style": "semibold"
+                  }
+                ]
+              },
               {
                 "fontFamily": "Manrope",
                 "fontDefinitions": [
@@ -68,30 +97,12 @@
                     "weight": "200"
                   }
                 ]
-              },
-              {
-                "fontFamily": "Roboto",
-                "fontDefinitions": [
-                  {
-                    "path": "./assets/fonts/Roboto-Bold.ttf",
-                    "weight": "700"
-                  },
-                  {
-                    "path": "./assets/fonts/Roboto-Italic.ttf",
-                    "weight": "400",
-                    "style": "italic"
-                  },
-                  {
-                    "path": "./assets/fonts/Roboto-BoldItalic.ttf",
-                    "weight": "600",
-                    "style": "bold-italic"
-                  }
-                ]
               }
             ]
           }
         }
-      ]
+      ],
+      "expo-sqlite"
     ],
     "experiments": {
       "typedRoutes": true

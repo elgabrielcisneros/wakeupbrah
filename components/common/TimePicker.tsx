@@ -4,14 +4,21 @@ import { StyleSheet } from "react-native";
 import DatePicker from "react-native-date-picker";
 import "../../styles/global.css";
 
-export default function TimePicker() {
+export default function TimePicker({
+  onTimeChange,
+}: {
+  onTimeChange: (time: Date) => void;
+}) {
   const [time, setTime] = useState(new Date());
 
   return (
     <View>
       <DatePicker
         date={time}
-        onDateChange={setTime}
+        onDateChange={(newDate) => {
+          setTime(newDate);
+          onTimeChange(newDate);
+        }}
         mode="time"
         style={styles.datePicker}
       />

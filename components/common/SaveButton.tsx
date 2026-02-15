@@ -1,12 +1,42 @@
 import { Text } from "@/components/Themed";
+import { useAlarmStore } from "@/store/useAlarmStore";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import Animated from "react-native-reanimated";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-export default function SaveButton() {
+export default function SaveButton({
+  time,
+  title,
+}: {
+  time: Date;
+  title: string;
+}) {
   const [pressed, setPressed] = useState(false);
+  const router = useRouter();
+
+  const addAlarm = useAlarmStore((state) => state.addAlarm);
+
+  const generateId = () => Date.now().toString(36) + Math.random().toString(36);
+
+  function handleSave() {
+    addAlarm({
+      id: generateId(),
+      title: title,
+      time: time,
+      challenge: {
+        type: "math",
+        status: "not_started",
+      },
+      day: "mon",
+      repeating: false,
+      repeatingPattern: "daily",
+      status: "enabled",
+    });
+    router.back();
+  }
 
   return (
     <View style={styles.container}>
@@ -17,6 +47,7 @@ export default function SaveButton() {
         ]}
         onPressIn={() => setPressed(true)}
         onPressOut={() => setPressed(false)}
+        onPress={() => handleSave()}
       >
         <Text style={styles.label}>Save</Text>
       </AnimatedPressable>

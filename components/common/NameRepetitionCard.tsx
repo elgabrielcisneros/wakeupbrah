@@ -1,10 +1,15 @@
 import { Text, View } from "@/components/Themed";
 import Ionicons from "@react-native-vector-icons/ionicons";
-import React from "react";
+import { useState } from "react";
 import { Pressable, StyleSheet, TextInput } from "react-native";
 import "../../styles/global.css";
 
-export default function NameRepetitionCard() {
+export default function NameRepetitionCard({
+  onTitleChange,
+}: {
+  onTitleChange: (title: string) => void;
+}) {
+  const [title, setTitle] = useState("");
   return (
     <View style={styles.card} className="flex items-center justify-center p-3">
       <View
@@ -18,6 +23,11 @@ export default function NameRepetitionCard() {
           style={styles.input}
           placeholder="Wake up"
           className="text-white"
+          value={title}
+          onChangeText={(text) => {
+            setTitle(text);
+            onTitleChange(text);
+          }}
         />
       </View>
 

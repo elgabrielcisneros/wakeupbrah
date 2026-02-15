@@ -7,7 +7,7 @@ export default function AlarmItem({ alarm }: { alarm: Alarm }) {
   return (
     <View style={styles.cardContainer}>
       <Text
-        style={{ fontFamily: "Roboto" }}
+        style={styles.title}
         className="text-3xl"
         lightColor="#000000ff"
         darkColor="rgba(255, 255, 255, 1)"
@@ -16,11 +16,14 @@ export default function AlarmItem({ alarm }: { alarm: Alarm }) {
       </Text>
       <Text
         className="text-xl"
-        style={{ fontFamily: "Roboto" }}
+        style={styles.time}
         lightColor="#000000ff"
         darkColor="rgba(255, 255, 255, 1)"
       >
-        {alarm.time.toLocaleString()}
+        {alarm.time.toLocaleString(["en-US"], {
+          hour: "2-digit",
+          minute: "2-digit",
+        })}
       </Text>
     </View>
   );
@@ -33,5 +36,12 @@ const styles = StyleSheet.create({
     borderColor: "#64a7ffff",
     borderWidth: 1,
     marginBottom: 16,
+  },
+  title: {
+    fontFamily: "inter",
+  },
+  time: {
+    fontFamily: "inter",
+    fontWeight: "bold",
   },
 });

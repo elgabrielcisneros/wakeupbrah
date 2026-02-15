@@ -1,5 +1,5 @@
 import { Text, View } from "@/components/Themed";
-import React from "react";
+import { useState } from "react";
 import {
   Image,
   ImageSourcePropType,
@@ -10,12 +10,12 @@ import { Challenge, ChallengeType } from "../../infraestructure/types/alarm";
 
 interface ChallengeIconProps {
   challenge: Challenge;
-  onPress?: (type: ChallengeType) => void;
+  onSelect?: (type: ChallengeType) => void;
 }
 
 export default function ChallengeIcon({
   challenge,
-  onPress,
+  onSelect,
 }: ChallengeIconProps) {
   const getIconForType = (type: ChallengeType) => {
     const icons: Record<ChallengeType, ImageSourcePropType> = {
@@ -28,17 +28,18 @@ export default function ChallengeIcon({
     return icons[type];
   };
 
+  const [isSelected, setSelected] = useState(false);
+
   return (
     <View style={styles.container}>
       <View
-        style={styles.iconContainer}
+        style={[styles.iconContainer, isSelected ? styles.iconPressed : null]}
         className="flex items-center justify-center"
       >
-        <Pressable onPress={() => onPress?.(challenge.type)}>
-          <Image
-            source={getIconForType(challenge.type)}
-            style={{ width: 20, height: 20 }}
-          />
+        <Pressable
+          onPress={() => [setSelected(!isSelected), onSelect?.(challenge.type)]}
+        >
+          <Image source={getIconForType(challenge.type)} />
           <Text style={styles.label} className="capitalize">
             {challenge.type}
           </Text>
@@ -56,12 +57,19 @@ const styles = StyleSheet.create({
     backgroundColor: "#1E293B",
     borderRadius: 20,
     padding: 10,
-    width: 62,
-    height: 62,
+    width: 65,
+    height: 65,
+  },
+  icon: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  iconPressed: {
+    borderColor: "#94A3B8",
+    borderWidth: 1,
   },
   label: {
     fontFamily: "Manrope",
-    fontWeight: "bold",
     color: "#64748B",
     fontSize: 12,
     marginTop: 4,

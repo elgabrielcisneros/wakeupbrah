@@ -1,24 +1,26 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
 import { Tabs } from "expo-router";
 import React from "react";
 
+import AddButton from "@/components/common/AddButton";
 import { useClientOnlyValue } from "@/components/useClientOnlyValue";
 import { useColorScheme } from "@/components/useColorScheme";
 import Colors from "@/constants/Colors";
+import { useAlarmStore } from "@/store/useAlarmStore";
 import { StyleSheet } from "react-native";
 import "../../styles/global.css";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>["name"];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
+// function TabBarIcon(props: {
+//   name: React.ComponentProps<typeof FontAwesome>["name"];
+//   color: string;
+// }) {
+//   return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
+// }
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const alarms = useAlarmStore((state) => state.alarms);
 
   return (
     <Tabs
@@ -36,8 +38,14 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Alarms",
+          headerRight: () => {
+            if (alarms.length === 0) {
+              return null;
+            }
+            return <AddButton />;
+          },
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="clock-o" color={color} />
+            <Ionicons name="alarm-outline" color={color} size={28} />
           ),
         }}
       />
@@ -61,6 +69,7 @@ const styles = StyleSheet.create({
     elevation: 0,
   },
   headerFontStyle: {
+    fontFamily: "Inter",
     fontSize: 34,
     fontWeight: "bold",
     color: "#64a7ffff",
