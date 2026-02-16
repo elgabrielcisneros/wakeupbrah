@@ -2,6 +2,7 @@
   "name": "wakeupbrah",
   "main": "expo-router/entry",
   "version": "1.0.0",
+  "license": "MIT",
   "scripts": {
     "start": "expo start",
     "android": "expo run:android",
