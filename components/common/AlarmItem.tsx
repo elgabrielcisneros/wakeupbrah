@@ -1,5 +1,5 @@
 import { Text, View } from "@/components/Themed";
-import { StyleSheet } from "react-native";
+import { Image, StyleSheet } from "react-native";
 import { Alarm } from "../../infraestructure/types/alarm";
 import "../../styles/global.css";
 
@@ -25,6 +25,7 @@ export default function AlarmItem({ alarm }: { alarm: Alarm }) {
           minute: "2-digit",
         })}
       </Text>
+      <Image source={alarm.challenge.icon}></Image>
     </View>
   );
 }

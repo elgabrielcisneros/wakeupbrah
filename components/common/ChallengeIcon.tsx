@@ -1,33 +1,15 @@
 import { Text, View } from "@/components/Themed";
 import { useState } from "react";
+import { Image, Pressable, StyleSheet } from "react-native";
 import {
-  Image,
-  ImageSourcePropType,
-  Pressable,
-  StyleSheet,
-} from "react-native";
-import { Challenge, ChallengeType } from "../../infraestructure/types/alarm";
-
-interface ChallengeIconProps {
-  challenge: Challenge;
-  onSelect?: (type: ChallengeType) => void;
-}
+  ChallengeIconProps,
+  getIconForType,
+} from "../../infraestructure/types/alarm";
 
 export default function ChallengeIcon({
   challenge,
   onSelect,
 }: ChallengeIconProps) {
-  const getIconForType = (type: ChallengeType) => {
-    const icons: Record<ChallengeType, ImageSourcePropType> = {
-      math: require("../../assets/images/icons/math.png"),
-      qr: require("../../assets/images/icons/qr.png"),
-      walk: require("../../assets/images/icons/walk.png"),
-      map: require("../../assets/images/icons/map.png"),
-      type: require("../../assets/images/icons/type.png"),
-    };
-    return icons[type];
-  };
-
   const [isSelected, setSelected] = useState(false);
 
   return (

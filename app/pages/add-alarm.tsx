@@ -4,6 +4,7 @@ import SaveButton from "@/components/common/SaveButton";
 import SoundCard from "@/components/common/SoundCard";
 import TimePicker from "@/components/common/TimePicker";
 import { Text, View } from "@/components/Themed";
+import { ChallengeType } from "@/infraestructure/types/alarm";
 import Ionicons from "@react-native-vector-icons/ionicons";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
@@ -17,6 +18,8 @@ export default function AddAlarm() {
 
   const [time, setTime] = useState(new Date());
   const [title, setTitle] = useState("");
+
+  const [challenge, setChallenge] = useState<ChallengeType>("walk");
 
   return (
     <View style={{ paddingTop: insets.top + 10 }} className="p-4">
@@ -44,7 +47,7 @@ export default function AddAlarm() {
       </View>
 
       <View className="mt-6 m-4">
-        <ChallengeList />
+        <ChallengeList onChallengeChange={setChallenge} />
       </View>
 
       <View className="mt-6">
@@ -52,7 +55,7 @@ export default function AddAlarm() {
       </View>
 
       <View className="mt-10">
-        <SaveButton time={time} title={title} />
+        <SaveButton time={time} title={title} challenge={challenge} />
       </View>
     </View>
   );

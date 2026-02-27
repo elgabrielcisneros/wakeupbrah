@@ -1,3 +1,5 @@
+import { ImageSourcePropType } from "react-native";
+
 export type AlarmStore = {
   alarms: Alarm[];
   addAlarm: (alarm: Alarm) => void;
@@ -33,4 +35,21 @@ export type ChallengeType = "math" | "qr" | "walk" | "map" | "type";
 export type Challenge = {
   type: ChallengeType;
   status: "not_started" | "started" | "completed";
+  icon: ImageSourcePropType;
+};
+
+export interface ChallengeIconProps {
+  challenge: Challenge;
+  onSelect?: (type: ChallengeType) => void;
+}
+
+export const getIconForType = (type: ChallengeType) => {
+  const icons: Record<ChallengeType, ImageSourcePropType> = {
+    math: require("../../assets/images/icons/math.png"),
+    qr: require("../../assets/images/icons/qr.png"),
+    walk: require("../../assets/images/icons/walk.png"),
+    map: require("../../assets/images/icons/map.png"),
+    type: require("../../assets/images/icons/type.png"),
+  };
+  return icons[type];
 };

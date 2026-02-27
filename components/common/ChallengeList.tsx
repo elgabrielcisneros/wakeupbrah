@@ -2,7 +2,10 @@ import { Text, View } from "@/components/Themed";
 import React from "react";
 import { FlatList, StyleSheet } from "react-native";
 import challengesData from "../../assets/json/challenges.json";
-import { ChallengeType } from "../../infraestructure/types/alarm";
+import {
+  ChallengeType,
+  getIconForType,
+} from "../../infraestructure/types/alarm";
 import ChallengeIcon from "./ChallengeIcon";
 
 type ChallengeData = {
@@ -11,11 +14,16 @@ type ChallengeData = {
   status: "not_started" | "started" | "completed";
 };
 
-export default function ChallengeList() {
+export default function ChallengeList({
+  onChallengeChange,
+}: {
+  onChallengeChange: (challenge: ChallengeType) => void;
+}) {
   const challenges = challengesData as ChallengeData[];
 
   const handleChallengePress = (type: ChallengeType) => {
     console.log("selected challenge:", type);
+    onChallengeChange(type);
 
     // when click a challenge, send message to db to notify which challenge has been selected
   };
@@ -36,6 +44,7 @@ export default function ChallengeList() {
             challenge={{
               type: item.type,
               status: item.status,
+              icon: getIconForType(item.type),
             }}
             onSelect={handleChallengePress}
           />

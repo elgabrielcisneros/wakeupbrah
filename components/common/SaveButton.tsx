@@ -1,4 +1,5 @@
 import { Text } from "@/components/Themed";
+import { ChallengeType, getIconForType } from "@/infraestructure/types/alarm";
 import { useAlarmStore } from "@/store/useAlarmStore";
 import { useRouter } from "expo-router";
 import { useState } from "react";
@@ -10,9 +11,11 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 export default function SaveButton({
   time,
   title,
+  challenge,
 }: {
   time: Date;
   title: string;
+  challenge: ChallengeType;
 }) {
   const [pressed, setPressed] = useState(false);
   const router = useRouter();
@@ -27,8 +30,9 @@ export default function SaveButton({
       title: title,
       time: time,
       challenge: {
-        type: "math",
+        type: challenge,
         status: "not_started",
+        icon: getIconForType(challenge),
       },
       day: "mon",
       repeating: false,
