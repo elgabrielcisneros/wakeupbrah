@@ -41,6 +41,7 @@ export type Challenge = {
 export interface ChallengeIconProps {
   challenge: Challenge;
   onSelect?: (type: ChallengeType) => void;
+  isSelected?: boolean;
 }
 
 export const getIconForType = (type: ChallengeType) => {
@@ -53,3 +54,13 @@ export const getIconForType = (type: ChallengeType) => {
   };
   return icons[type];
 };
+
+export type ToastMessage = "error" | "success" | "info";
+
+export interface ToastProps {
+  visible: boolean;
+  message: string;
+  type?: ToastMessage;
+  duration?: number;
+  onHide: () => void;
+}

@@ -5,6 +5,7 @@ import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import Animated from "react-native-reanimated";
+import Toast from "./Toast";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -24,7 +25,14 @@ export default function SaveButton({
 
   const generateId = () => Date.now().toString(36) + Math.random().toString(36);
 
+  const [toastVisible, setToastVisible] = useState(false);
+
   function handleSave() {
+    if (!title.trim()) {
+      setToastVisible(true);
+      return;
+    }
+
     addAlarm({
       id: generateId(),
       title: title,
@@ -55,6 +63,13 @@ export default function SaveButton({
       >
         <Text style={styles.label}>Save</Text>
       </AnimatedPressable>
+
+      <Toast
+        visible={toastVisible}
+        message="Alarm name is required"
+        type="error"
+        onHide={() => setToastVisible(false)}
+      />
     </View>
   );
 }

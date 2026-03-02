@@ -1,5 +1,4 @@
 import { Text, View } from "@/components/Themed";
-import { useState } from "react";
 import { Image, Pressable, StyleSheet } from "react-native";
 import {
   ChallengeIconProps,
@@ -9,18 +8,15 @@ import {
 export default function ChallengeIcon({
   challenge,
   onSelect,
+  isSelected,
 }: ChallengeIconProps) {
-  const [isSelected, setSelected] = useState(false);
-
   return (
     <View style={styles.container}>
       <View
         style={[styles.iconContainer, isSelected ? styles.iconPressed : null]}
         className="flex items-center justify-center"
       >
-        <Pressable
-          onPress={() => [setSelected(!isSelected), onSelect?.(challenge.type)]}
-        >
+        <Pressable onPress={() => onSelect?.(challenge.type)}>
           <Image source={getIconForType(challenge.type)} />
           <Text style={styles.label} className="capitalize">
             {challenge.type}

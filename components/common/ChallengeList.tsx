@@ -16,8 +16,10 @@ type ChallengeData = {
 
 export default function ChallengeList({
   onChallengeChange,
+  selectedChallenge,
 }: {
   onChallengeChange: (challenge: ChallengeType) => void;
+  selectedChallenge: ChallengeType;
 }) {
   const challenges = challengesData as ChallengeData[];
 
@@ -40,13 +42,14 @@ export default function ChallengeList({
         data={challenges}
         renderItem={({ item }) => (
           <ChallengeIcon
+            isSelected={item.type === selectedChallenge}
+            onSelect={handleChallengePress}
             key={item.id}
             challenge={{
               type: item.type,
               status: item.status,
               icon: getIconForType(item.type),
             }}
-            onSelect={handleChallengePress}
           />
         )}
       />
