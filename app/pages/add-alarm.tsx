@@ -47,7 +47,10 @@ export default function AddAlarm() {
       </View>
 
       <View className="mt-6 m-4">
-        <ChallengeList onChallengeChange={setChallenge} />
+        <ChallengeList
+          onChallengeChange={setChallenge}
+          selectedChallenge={challenge}
+        />
       </View>
 
       <View className="mt-6">
