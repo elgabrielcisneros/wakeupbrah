@@ -4,10 +4,15 @@ const db = SQLite.openDatabaseAsync("wakeupbrah.db");
 
 export const initDatabase = async () => {
   (await db).execAsync(`
-        CREATE TABLE IF NOT EXISTS alarms (
+        CREATE TABLE IF NOT EXISTS alarm (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            time TEXT NOT NULL,
-            enabled BOOLEAN NOT NULL
+            title TEXT NOT NULL,
+            time DATE,
+            repeating BOOLEAN NOT NULL,
+            repeating_pattern TEXT NOT NULL,
+            challenge TEXT NOT NULL,
+            day TEXT NOT NULL,
+            status BOOLEAN NOT NULL
         )
     `);
 };
