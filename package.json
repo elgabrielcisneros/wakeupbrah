@@ -2,6 +2,7 @@
   "name": "wakeupbrah",
   "main": "expo-router/entry",
   "version": "1.0.0",
+  "license": "MIT",
   "scripts": {
     "start": "expo start",
     "android": "expo run:android",
@@ -22,6 +23,7 @@
     "expo-linking": "~8.0.10",
     "expo-router": "~6.0.19",
     "expo-splash-screen": "~31.0.12",
+    "expo-sqlite": "~16.0.10",
     "expo-status-bar": "~3.0.9",
     "expo-system-ui": "^6.0.9",
     "expo-web-browser": "~15.0.10",

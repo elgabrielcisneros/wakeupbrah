@@ -1,12 +1,54 @@
 import { Text } from "@/components/Themed";
+import { ChallengeType, getIconForType } from "@/infraestructure/types/alarm";
+import { useAlarmStore } from "@/store/useAlarmStore";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import Animated from "react-native-reanimated";
+import Toast from "./Toast";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-export default function SaveButton() {
+export default function SaveButton({
+  time,
+  title,
+  challenge,
+}: {
+  time: Date;
+  title: string;
+  challenge: ChallengeType;
+}) {
   const [pressed, setPressed] = useState(false);
+  const router = useRouter();
+
+  const addAlarm = useAlarmStore((state) => state.addAlarm);
+
+  const generateId = () => Date.now().toString(36) + Math.random().toString(36);
+
+  const [toastVisible, setToastVisible] = useState(false);
+
+  function handleSave() {
+    if (!title.trim()) {
+      setToastVisible(true);
+      return;
+    }
+
+    addAlarm({
+      id: generateId(),
+      title: title,
+      time: time,
+      challenge: {
+        type: challenge,
+        status: "not_started",
+        icon: getIconForType(challenge),
+      },
+      day: "mon",
+      repeating: false,
+      repeatingPattern: "daily",
+      status: "enabled",
+    });
+    router.back();
+  }
 
   return (
     <View style={styles.container}>
@@ -17,9 +59,17 @@ export default function SaveButton() {
         ]}
         onPressIn={() => setPressed(true)}
         onPressOut={() => setPressed(false)}
+        onPress={() => handleSave()}
       >
         <Text style={styles.label}>Save</Text>
       </AnimatedPressable>
+
+      <Toast
+        visible={toastVisible}
+        message="Alarm name is required"
+        type="error"
+        onHide={() => setToastVisible(false)}
+      />
     </View>
   );
 }
