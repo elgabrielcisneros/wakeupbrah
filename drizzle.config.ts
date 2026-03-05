@@ -5,4 +5,7 @@ export default defineConfig({
   driver: "expo",
   schema: "./db/schema.ts",
   out: "./drizzle",
+  dbCredentials: {
+    url: "sqlite://./db/wakeupbrah.db",
+  },
 });

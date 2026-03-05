@@ -4,12 +4,14 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
+import { useDrizzleStudio } from "expo-drizzle-studio-plugin";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 
 import { useColorScheme } from "@/components/useColorScheme";
+import { db, initDatabase } from "@/db/database";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -62,6 +64,11 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
+  useDrizzleStudio(db.$client);
+
+  useEffect(() => {
+    initDatabase();
+  }, []);
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
