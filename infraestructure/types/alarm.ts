@@ -2,6 +2,7 @@ import { ImageSourcePropType } from "react-native";
 
 export type AlarmStore = {
   alarms: Alarm[];
+  setAlarms: (alarms: Alarm[]) => void;
   addAlarm: (alarm: Alarm) => void;
   removeAlarm: (id: string) => void;
   updateAlarm: (alarm: Alarm) => void;
