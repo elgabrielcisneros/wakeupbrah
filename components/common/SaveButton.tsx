@@ -1,5 +1,10 @@
 import { Text } from "@/components/Themed";
-import { ChallengeType, getIconForType } from "@/infraestructure/types/alarm";
+import { insertAlarm } from "@/db/database";
+import {
+  Alarm,
+  ChallengeType,
+  getIconForType,
+} from "@/infraestructure/types/alarm";
 import { useAlarmStore } from "@/store/useAlarmStore";
 import { useRouter } from "expo-router";
 import { useState } from "react";
@@ -27,16 +32,17 @@ export default function SaveButton({
 
   const [toastVisible, setToastVisible] = useState(false);
 
-  function handleSave() {
+  // SaveButton.tsx - handleSave mejorado
+  async function handleSave() {
     if (!title.trim()) {
       setToastVisible(true);
       return;
     }
 
-    addAlarm({
+    const newAlarm: Alarm = {
       id: generateId(),
-      title: title,
-      time: time,
+      title,
+      time,
       challenge: {
         type: challenge,
         status: "not_started",
@@ -46,7 +52,20 @@ export default function SaveButton({
       repeating: false,
       repeatingPattern: "daily",
       status: "enabled",
+    };
+
+    const id = await insertAlarm({
+      title: newAlarm.title,
+      time: newAlarm.time,
+      repeating: newAlarm.repeating,
+      repeatingPattern: newAlarm.repeatingPattern,
+      challenge: newAlarm.challenge.type, // en DB guardas solo el string
+      day: newAlarm.day,
+      status: newAlarm.status === "enabled",
     });
+
+    addAlarm({ ...newAlarm, id: id.toString() });
+
     router.back();
   }
 

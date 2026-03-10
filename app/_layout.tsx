@@ -11,7 +11,8 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 
 import { useColorScheme } from "@/components/useColorScheme";
-import { db, initDatabase } from "@/db/database";
+import { db, getAlarms, initDatabase } from "@/db/database";
+import { useAlarmStore } from "@/store/useAlarmStore";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -65,6 +66,19 @@ export default function RootLayout() {
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
   useDrizzleStudio(db.$client);
+  const setAlarms = useAlarmStore((state) => state.setAlarms);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const dbAlarms = await getAlarms();
+        setAlarms(dbAlarms as any);
+      } catch (error) {
+        console.error("Failed to load alarms from db:", error);
+      }
+    };
+    load();
+  }, []);
 
   useEffect(() => {
     initDatabase();

@@ -4,6 +4,8 @@ import { Alarm, AlarmStore } from "../infraestructure/types/alarm";
 export const useAlarmStore = create<AlarmStore>()((set) => ({
   alarms: [],
 
+  setAlarms: (alarms: Alarm[]) => set({ alarms }),
+
   addAlarm: (alarm: Alarm) =>
     set((state) => ({
       alarms: [...state.alarms, alarm],
