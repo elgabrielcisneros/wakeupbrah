@@ -20,12 +20,12 @@ export default function AlarmItem({ alarm }: { alarm: Alarm }) {
         lightColor="#000000ff"
         darkColor="rgba(255, 255, 255, 1)"
       >
-        {alarm.time.toLocaleString(["en-US"], {
+        {new Date(alarm.time).toLocaleTimeString(["en-US"], {
           hour: "2-digit",
           minute: "2-digit",
         })}
       </Text>
-      <Image source={alarm.challenge.icon}></Image>
+      <Image source={alarm.challenge.icon} />
     </View>
   );
 }
