@@ -14,18 +14,20 @@ export default function AlarmItem({ alarm }: { alarm: Alarm }) {
       >
         {alarm.title}
       </Text>
-      <Text
-        className="text-xl"
-        style={styles.time}
-        lightColor="#000000ff"
-        darkColor="rgba(255, 255, 255, 1)"
-      >
-        {new Date(alarm.time).toLocaleTimeString(["en-US"], {
-          hour: "2-digit",
-          minute: "2-digit",
-        })}
-      </Text>
-      <Image source={alarm.challenge.icon} />
+      <View className="flex flex-row">
+        <Text
+          className="text-xl mr-2"
+          style={styles.time}
+          lightColor="#000000ff"
+          darkColor="rgba(255, 255, 255, 1)"
+        >
+          {new Date(alarm.time).toLocaleTimeString(["en-US"], {
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+        </Text>
+        <Image className="mt-1" source={alarm.challenge.icon} />
+      </View>
     </View>
   );
 }

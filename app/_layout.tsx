@@ -75,28 +75,40 @@ function RootLayoutNav() {
         const dbAlarms = await getAlarms();
 
         const hydratedAlarms = dbAlarms.map((alarm) => {
-          let renderedChallenge: any =
-            typeof alarm.challenge === "string" ? {} : alarm.challenge;
+          let challengeType = "walk"; // default value
 
           if (typeof alarm.challenge === "string") {
             try {
               const parsed = JSON.parse(alarm.challenge);
-              if (typeof parsed === "object" && parsed !== null) {
-                renderedChallenge = parsed;
+              if (
+                typeof parsed === "object" &&
+                parsed !== null &&
+                parsed.type
+              ) {
+                challengeType = parsed.type;
+              } else if (typeof parsed === "string") {
+                challengeType = parsed;
               }
-            } catch (e) {}
+            } catch (e) {
+              challengeType = alarm.challenge;
+            }
+          } else if (
+            typeof alarm.challenge === "object" &&
+            alarm.challenge !== null
+          ) {
+            challengeType = (alarm.challenge as any).type || "walk";
           }
 
           return {
-            // render alarm
             ...alarm,
             // render and format the alarm time
             time: new Date(alarm.time),
 
-            // render the challenge icon by its type
             challenge: {
-              ...renderedChallenge,
-              icon: getIconForType(renderedChallenge?.type),
+              type: challengeType as any,
+              status: "not_started",
+              // render the challenge icon by its type
+              icon: getIconForType(challengeType as any),
             },
           };
         });
