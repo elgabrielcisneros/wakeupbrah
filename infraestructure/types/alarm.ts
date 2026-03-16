@@ -1,5 +1,8 @@
+import { ImageSourcePropType } from "react-native";
+
 export type AlarmStore = {
   alarms: Alarm[];
+  setAlarms: (alarms: Alarm[]) => void;
   addAlarm: (alarm: Alarm) => void;
   removeAlarm: (id: string) => void;
   updateAlarm: (alarm: Alarm) => void;
@@ -14,7 +17,6 @@ export type Alarm = {
   repeatingPattern: RepeatingPattern;
   challenge: Challenge;
   day: Day;
-  volume: Volume;
   status: AlarmStatus;
 };
 
@@ -26,12 +28,40 @@ export type RepeatingPattern = "daily" | "weekly";
 
 export type ChallengeType = "math" | "qr" | "walk" | "map" | "type";
 
-export type Volume = {
-  value: number;
-  muted: boolean;
-};
+// export type Volume = {
+//   value: number;
+//   muted: boolean;
+// };
 
 export type Challenge = {
   type: ChallengeType;
   status: "not_started" | "started" | "completed";
+  icon: ImageSourcePropType;
 };
+
+export interface ChallengeIconProps {
+  challenge: Challenge;
+  onSelect?: (type: ChallengeType) => void;
+  isSelected?: boolean;
+}
+
+export const getIconForType = (type: ChallengeType) => {
+  const icons: Record<ChallengeType, ImageSourcePropType> = {
+    math: require("../../assets/images/icons/math.png"),
+    qr: require("../../assets/images/icons/qr.png"),
+    walk: require("../../assets/images/icons/walk.png"),
+    map: require("../../assets/images/icons/map.png"),
+    type: require("../../assets/images/icons/type.png"),
+  };
+  return icons[type];
+};
+
+export type ToastMessage = "error" | "success" | "info";
+
+export interface ToastProps {
+  visible: boolean;
+  message: string;
+  type?: ToastMessage;
+  duration?: number;
+  onHide: () => void;
+}

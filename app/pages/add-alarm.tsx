@@ -4,9 +4,10 @@ import SaveButton from "@/components/common/SaveButton";
 import SoundCard from "@/components/common/SoundCard";
 import TimePicker from "@/components/common/TimePicker";
 import { Text, View } from "@/components/Themed";
+import { ChallengeType } from "@/infraestructure/types/alarm";
 import Ionicons from "@react-native-vector-icons/ionicons";
 import { useRouter } from "expo-router";
-import React from "react";
+import React, { useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import "../../styles/global.css";
@@ -14,6 +15,11 @@ import "../../styles/global.css";
 export default function AddAlarm() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+
+  const [time, setTime] = useState(new Date());
+  const [title, setTitle] = useState("");
+
+  const [challenge, setChallenge] = useState<ChallengeType>("walk");
 
   return (
     <View style={{ paddingTop: insets.top + 10 }} className="p-4">
@@ -33,15 +39,18 @@ export default function AddAlarm() {
       </View>
 
       <View className="flex items-center justify-center mt-10">
-        <TimePicker />
+        <TimePicker onTimeChange={setTime} />
       </View>
 
       <View className="mt-10">
-        <NameRepetitionCard />
+        <NameRepetitionCard onTitleChange={setTitle} />
       </View>
 
       <View className="mt-6 m-4">
-        <ChallengeList />
+        <ChallengeList
+          onChallengeChange={setChallenge}
+          selectedChallenge={challenge}
+        />
       </View>
 
       <View className="mt-6">
@@ -49,7 +58,7 @@ export default function AddAlarm() {
       </View>
 
       <View className="mt-10">
-        <SaveButton />
+        <SaveButton time={time} title={title} challenge={challenge} />
       </View>
     </View>
   );

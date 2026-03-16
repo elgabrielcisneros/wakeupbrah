@@ -1,5 +1,5 @@
 import { Text, View } from "@/components/Themed";
-import { StyleSheet } from "react-native";
+import { Image, StyleSheet } from "react-native";
 import { Alarm } from "../../infraestructure/types/alarm";
 import "../../styles/global.css";
 
@@ -7,21 +7,27 @@ export default function AlarmItem({ alarm }: { alarm: Alarm }) {
   return (
     <View style={styles.cardContainer}>
       <Text
-        style={{ fontFamily: "Roboto" }}
+        style={styles.title}
         className="text-3xl"
         lightColor="#000000ff"
         darkColor="rgba(255, 255, 255, 1)"
       >
         {alarm.title}
       </Text>
-      <Text
-        className="text-xl"
-        style={{ fontFamily: "Roboto" }}
-        lightColor="#000000ff"
-        darkColor="rgba(255, 255, 255, 1)"
-      >
-        {alarm.time.toLocaleString()}
-      </Text>
+      <View className="flex flex-row">
+        <Text
+          className="text-xl mr-2"
+          style={styles.time}
+          lightColor="#000000ff"
+          darkColor="rgba(255, 255, 255, 1)"
+        >
+          {new Date(alarm.time).toLocaleTimeString(["en-US"], {
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+        </Text>
+        <Image className="mt-1" source={alarm.challenge.icon} />
+      </View>
     </View>
   );
 }
@@ -33,5 +39,12 @@ const styles = StyleSheet.create({
     borderColor: "#64a7ffff",
     borderWidth: 1,
     marginBottom: 16,
+  },
+  title: {
+    fontFamily: "inter",
+  },
+  time: {
+    fontFamily: "inter",
+    fontWeight: "bold",
   },
 });
