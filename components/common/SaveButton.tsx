@@ -32,7 +32,6 @@ export default function SaveButton({
 
   const [toastVisible, setToastVisible] = useState(false);
 
-  // SaveButton.tsx - handleSave mejorado
   async function handleSave() {
     if (!title.trim()) {
       setToastVisible(true);
