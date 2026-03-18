@@ -1,17 +1,25 @@
 import { Text, View } from "@/components/Themed";
-import { StyleSheet } from "react-native";
+import { Image, StyleSheet } from "react-native";
 
 import "../../styles/global.css";
-import AddButton from "./AddButton";
+import CreateButton from "./CreateButton";
 
 export default function EmptyContent() {
   return (
     <View className="flex-1 justify-center">
+      <View style={styles.imageContainer} className="mb-10">
+        <Image source={require("../../assets/images/index-tab/moon.png")} />
+      </View>
       <View>
         <Text className="text-center text-4xl font-bold" style={styles.title}>
-          Add a new alarm ⏰
+          No alarms yet
         </Text>
-        <AddButton />
+        <View className="p-3">
+          <Text className="text-center text-xl">
+            Ready to wake up with a challenge? Create your first alarm to start.
+          </Text>
+        </View>
+        <CreateButton />
       </View>
     </View>
   );
@@ -19,8 +27,12 @@ export default function EmptyContent() {
 
 const styles = StyleSheet.create({
   title: {
-    color: "#c5c5c5d2",
+    color: "#919191",
     lineHeight: 36,
-    fontStyle: "normal",
+    fontFamily: "Inter",
+  },
+  imageContainer: {
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
