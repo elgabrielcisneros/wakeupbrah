@@ -9,7 +9,11 @@ import { useAlarmStore } from "@/store/useAlarmStore";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
-import Animated from "react-native-reanimated";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 import Toast from "./Toast";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
@@ -23,7 +27,8 @@ export default function SaveButton({
   title: string;
   challenge: ChallengeType;
 }) {
-  const [pressed, setPressed] = useState(false);
+  const isPressed = useSharedValue(0);
+
   const router = useRouter();
 
   const addAlarm = useAlarmStore((state) => state.addAlarm);
@@ -68,15 +73,30 @@ export default function SaveButton({
     router.back();
   }
 
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        { scale: withTiming(isPressed.value ? 0.95 : 1, { duration: 100 }) },
+      ],
+      backgroundColor: withTiming(isPressed.value ? "#5f5f5f" : "#383838", {
+        duration: 100,
+      }),
+    };
+  });
+
   return (
     <View style={styles.container}>
       <AnimatedPressable
         style={[
-          pressed ? styles.buttonPressed : styles.button,
-          { transitionDuration: 100 },
+          styles.button,
+          {
+            shadowColor: "#616161ff",
+            shadowOffset: { width: 0, height: 0 },
+          },
+          animatedStyle,
         ]}
-        onPressIn={() => setPressed(true)}
-        onPressOut={() => setPressed(false)}
+        onPressIn={() => (isPressed.value = 1)}
+        onPressOut={() => (isPressed.value = 0)}
         onPress={() => handleSave()}
       >
         <Text style={styles.label}>Save</Text>
@@ -99,7 +119,6 @@ const styles = StyleSheet.create({
     display: "flex",
   },
   button: {
-    backgroundColor: "#383838",
     borderRadius: 30,
     padding: 10,
     width: "100%",
@@ -112,15 +131,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "white",
     fontSize: 24,
-  },
-  buttonPressed: {
-    backgroundColor: "#5f5f5f",
-    borderRadius: 30,
-    padding: 10,
-    width: "100%",
-    height: 60,
-    alignItems: "center",
-    justifyContent: "center",
-    transform: [{ scale: 0.95 }],
   },
 });
