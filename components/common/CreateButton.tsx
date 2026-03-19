@@ -1,39 +1,51 @@
 import { useRouter } from "expo-router";
-import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import Animated from "react-native-reanimated";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 export default function CreateButton() {
-  const [pressed, setPressed] = useState(false);
+  const isPressed = useSharedValue(0);
   const router = useRouter();
 
   async function handleNavigate() {
     router.navigate("/pages/add-alarm");
   }
 
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        { scale: withTiming(isPressed.value ? 0.95 : 1, { duration: 100 }) },
+      ],
+      backgroundColor: withTiming(isPressed.value ? "#71b1ffff" : "#60A5FA", {
+        duration: 100,
+      }),
+      // Glow effect (iOS)
+      shadowOpacity: withTiming(isPressed.value ? 0.6 : 0.2, { duration: 150 }),
+      shadowRadius: withTiming(isPressed.value ? 25 : 15, { duration: 150 }),
+      // Android basic glow simulation
+      elevation: withTiming(isPressed.value ? 10 : 25, { duration: 150 }),
+    };
+  });
+
   return (
     <View style={styles.container}>
       <AnimatedPressable
         style={[
-          pressed ? styles.buttonPressed : styles.button,
-          {
-            transitionDuration: 100,
-          },
+          styles.button,
           {
             shadowColor: "#7bb6ffff",
             shadowOffset: { width: 0, height: 0 },
-            shadowOpacity: 0.2,
-            shadowRadius: 20, // Adjust radius to control glow spread
-
-            // Android Elevation for a basic shadow (less "glow" like)
-            elevation: 20,
           },
+          animatedStyle,
         ]}
-        onPressIn={() => setPressed(true)}
-        onPressOut={() => setPressed(false)}
-        onPress={() => handleNavigate()}
+        onPressIn={() => (isPressed.value = 1)}
+        onPressOut={() => (isPressed.value = 0)}
+        onPress={handleNavigate}
       >
         <Text style={styles.label}>Create Alarm</Text>
       </AnimatedPressable>
@@ -48,7 +60,6 @@ const styles = StyleSheet.create({
     display: "flex",
   },
   button: {
-    backgroundColor: "#60A5FA",
     borderRadius: 30,
     padding: 10,
     width: "60%",
@@ -61,15 +72,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#191919",
     fontSize: 20,
-  },
-  buttonPressed: {
-    backgroundColor: "#71b1ffff",
-    borderRadius: 30,
-    padding: 10,
-    width: "60%",
-    height: 55,
-    alignItems: "center",
-    justifyContent: "center",
-    transform: [{ scale: 0.95 }],
   },
 });
