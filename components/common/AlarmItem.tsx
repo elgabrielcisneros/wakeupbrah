@@ -1,9 +1,22 @@
 import { Text, View } from "@/components/Themed";
 import { Image, StyleSheet } from "react-native";
 import { Alarm } from "../../infraestructure/types/alarm";
+import { useAlarmStore } from "../../store/useAlarmStore";
 import "../../styles/global.css";
+import { Toggle } from "./Toggle";
 
 export default function AlarmItem({ alarm }: { alarm: Alarm }) {
+  const updateAlarm = useAlarmStore((state) => state.updateAlarm);
+  const isEnabled = alarm.status === "enabled";
+
+  const handleToggle = () => {
+    updateAlarm({
+      ...alarm,
+      status: isEnabled ? "disabled" : "enabled",
+    });
+    console.info(isEnabled ? "disabled" : "enabled");
+  };
+
   return (
     <View style={styles.cardContainer}>
       <Text
@@ -27,6 +40,14 @@ export default function AlarmItem({ alarm }: { alarm: Alarm }) {
           })}
         </Text>
         <Image className="mt-1" source={alarm.challenge.icon} />
+        <View style={styles.toggleContainer}>
+          <Toggle
+            value={isEnabled}
+            onPress={handleToggle}
+            trackWidth={60}
+            trackHeight={28}
+          />
+        </View>
       </View>
     </View>
   );
@@ -35,8 +56,8 @@ export default function AlarmItem({ alarm }: { alarm: Alarm }) {
 const styles = StyleSheet.create({
   cardContainer: {
     padding: 16,
-    borderRadius: 10,
-    borderColor: "#64a7ffff",
+    borderRadius: 24,
+    borderColor: "#566E97",
     borderWidth: 1,
     marginBottom: 16,
   },
@@ -44,7 +65,12 @@ const styles = StyleSheet.create({
     fontFamily: "inter",
   },
   time: {
-    fontFamily: "inter",
     fontWeight: "bold",
+    fontFamily: "inter",
+  },
+  toggleContainer: {
+    justifyContent: "space-between",
+    marginLeft: "auto",
+    bottom: 5,
   },
 });
