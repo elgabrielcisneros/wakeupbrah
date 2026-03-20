@@ -72,7 +72,7 @@ export function Toggle({
   });
 
   return (
-    <Pressable onPress={onPress} style={style}>
+    <Pressable onPress={onPress} style={style} testID="toggle-pressable">
       <Animated.View
         style={[
           {
