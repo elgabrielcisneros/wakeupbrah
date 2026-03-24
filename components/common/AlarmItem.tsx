@@ -1,4 +1,5 @@
 import { Text, View } from "@/components/Themed";
+import { updateAlarmStatus } from "@/db/database";
 import { Image, StyleSheet } from "react-native";
 import { Alarm } from "../../infraestructure/types/alarm";
 import { useAlarmStore } from "../../store/useAlarmStore";
@@ -9,12 +10,13 @@ export default function AlarmItem({ alarm }: { alarm: Alarm }) {
   const updateAlarm = useAlarmStore((state) => state.updateAlarm);
   const isEnabled = alarm.status === "enabled";
 
-  const handleToggle = () => {
-    updateAlarm({
-      ...alarm,
-      status: isEnabled ? "disabled" : "enabled",
-    });
-    console.info(isEnabled ? "disabled" : "enabled");
+  const handleToggle = async () => {
+    const newStatus = isEnabled ? "disabled" : "enabled";
+    // 1. Update in-memory store immediately (optimistic UI)
+    updateAlarm({ ...alarm, status: newStatus });
+    // 2. Persist to SQLite so the change survives a restart
+    await updateAlarmStatus(alarm.id, newStatus === "enabled");
+    console.info("Alarm status changed to:", newStatus);
   };
 
   return (
