@@ -110,6 +110,8 @@ function RootLayoutNav() {
               // render the challenge icon by its type
               icon: getIconForType(challengeType as any),
             },
+            // render status: DB stores boolean (0/1), Alarm type expects "enabled"|"disabled"
+            status: alarm.status ? "enabled" : "disabled",
           };
         });
 

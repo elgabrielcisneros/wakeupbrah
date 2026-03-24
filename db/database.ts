@@ -1,3 +1,4 @@
+import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/expo-sqlite";
 import { openDatabaseSync } from "expo-sqlite";
 
@@ -41,4 +42,11 @@ export const insertAlarm = async (alarm: {
 export const getAlarms = async () => {
   const loadedAlarms = await db.select().from(alarmTable);
   return loadedAlarms;
+};
+
+export const updateAlarmStatus = async (id: string, status: boolean) => {
+  await db
+    .update(alarmTable)
+    .set({ status })
+    .where(eq(alarmTable.id, Number(id)));
 };
