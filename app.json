@@ -4,14 +4,14 @@
     "slug": "wakeupbrah",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/adaptive-icon.png",
     "scheme": "wakeupbrah",
     "userInterfaceStyle": "dark",
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/images/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#FDEDD2"
     },
     "ios": {
       "supportsTablet": true,
@@ -133,6 +133,18 @@
               "../../node_modules/@notifee/react-native/android/libs"
             ]
           }
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#FDEDD2",
+          "image": "./assets/images/splash-icon.png",
+          "dark": {
+            "image": "./assets/images/splash-icon.png",
+            "backgroundColor": "#FDEDD2"
+          },
+          "imageWidth": 200
         }
       ]
     ],
