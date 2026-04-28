@@ -22,4 +22,31 @@ export const useAlarmStore = create<AlarmStore>()((set) => ({
     })),
 
   clearAlarms: () => set(() => ({ alarms: [] })),
+
+  triggerAlarm: (id: string) =>
+    set((state) => ({
+      alarms: state.alarms.map((a) =>
+        a.id === id
+          ? {
+              ...a,
+              lastTriggeredAt: new Date().toISOString(),
+              triggerCount: (a.triggerCount || 0) + 1,
+            }
+          : a
+      ),
+    })),
+
+  dismissAlarm: (id: string) =>
+    set((state) => ({
+      alarms: state.alarms.map((a) =>
+        a.id === id ? { ...a, dismissedAt: new Date().toISOString() } : a
+      ),
+    })),
+
+  completeAlarm: (id: string) =>
+    set((state) => ({
+      alarms: state.alarms.map((a) =>
+        a.id === id ? { ...a, completedAt: new Date().toISOString() } : a
+      ),
+    })),
 }));

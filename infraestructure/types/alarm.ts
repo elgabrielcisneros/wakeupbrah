@@ -7,6 +7,9 @@ export type AlarmStore = {
   removeAlarm: (id: string) => void;
   updateAlarm: (alarm: Alarm) => void;
   clearAlarms: () => void;
+  triggerAlarm: (id: string) => void;
+  dismissAlarm: (id: string) => void;
+  completeAlarm: (id: string) => void;
 };
 
 export type Alarm = {
@@ -18,6 +21,10 @@ export type Alarm = {
   challenge: Challenge;
   day: Day;
   status: AlarmStatus;
+  lastTriggeredAt?: string;
+  triggerCount?: number;
+  dismissedAt?: string;
+  completedAt?: string;
 };
 
 export type AlarmStatus = "enabled" | "disabled";

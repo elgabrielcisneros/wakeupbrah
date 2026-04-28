@@ -9,4 +9,8 @@ export const alarmTable = sqliteTable("alarm", {
   challenge: text("challenge").notNull(),
   day: text("day").notNull(),
   status: integer("status", { mode: "boolean" }).notNull(),
+  lastTriggeredAt: text("last_triggered_at"),
+  triggerCount: integer("trigger_count").default(0),
+  dismissedAt: text("dismissed_at"),
+  completedAt: text("completed_at"),
 });
