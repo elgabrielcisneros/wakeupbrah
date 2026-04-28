@@ -14,6 +14,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
+import { scheduleAlarm } from "../NotifeeIntegration";
 import Toast from "./Toast";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
@@ -67,6 +68,8 @@ export default function SaveButton({
       day: newAlarm.day,
       status: newAlarm.status === "enabled",
     });
+
+    scheduleAlarm(newAlarm);
 
     addAlarm({ ...newAlarm, id: id.toString() });
 

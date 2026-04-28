@@ -10,6 +10,7 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 
+import { initializeAlarmSystem } from "@/components/NotifeeIntegration";
 import { useColorScheme } from "@/components/useColorScheme";
 import { db, getAlarms, initDatabase } from "@/db/database";
 import { getIconForType } from "@/infraestructure/types/alarm";
@@ -70,12 +71,13 @@ function RootLayoutNav() {
   const setAlarms = useAlarmStore((state) => state.setAlarms);
 
   useEffect(() => {
-    const load = async () => {
+    const init = async () => {
       try {
+        await initDatabase();
         const dbAlarms = await getAlarms();
 
         const hydratedAlarms = dbAlarms.map((alarm) => {
-          let challengeType = "walk"; // default value
+          let challengeType = "walk";
 
           if (typeof alarm.challenge === "string") {
             try {
@@ -101,30 +103,27 @@ function RootLayoutNav() {
 
           return {
             ...alarm,
-            // render and format the alarm time
             time: new Date(alarm.time),
-
             challenge: {
               type: challengeType as any,
               status: "not_started",
-              // render the challenge icon by its type
               icon: getIconForType(challengeType as any),
             },
-            // render status: DB stores boolean (0/1), Alarm type expects "enabled"|"disabled"
             status: alarm.status ? "enabled" : "disabled",
           };
         });
 
         setAlarms(hydratedAlarms as any);
       } catch (error) {
-        console.error("Failed to load alarms from db:", error);
+        console.error("Failed to init database or load alarms:", error);
       }
     };
-    load();
+
+    init();
   }, []);
 
   useEffect(() => {
-    initDatabase();
+    initializeAlarmSystem();
   }, []);
 
   return (
