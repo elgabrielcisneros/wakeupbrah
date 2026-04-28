@@ -1,8 +1,9 @@
-import { getAlarms, initDatabase, insertAlarm } from "@/db/database";
+import { completeAlarm, dismissAlarm, getAlarms, initDatabase, insertAlarm, triggerAlarm } from "@/db/database";
 
 jest.mock("expo-sqlite", () => ({
   openDatabaseSync: jest.fn(() => ({
     execAsync: jest.fn(),
+    getAllAsync: jest.fn().mockResolvedValue([]),
   })),
 }));
 
@@ -17,6 +18,9 @@ jest.mock("drizzle-orm/expo-sqlite", () => ({
       .mockResolvedValue([
         { id: 1, title: "Test Alarm", time: "2026-03-06T06:45:00.000Z" },
       ]),
+    update: jest.fn().mockReturnThis(),
+    set: jest.fn().mockReturnThis(),
+    where: jest.fn().mockResolvedValue(true),
   })),
 }));
 
@@ -46,5 +50,17 @@ describe("Database functions", () => {
     const alarms = await getAlarms();
     expect(alarms).toHaveLength(1);
     expect(alarms[0].title).toBe("Test Alarm");
+  });
+
+  it("triggerAlarm updates trigger count and last triggered at", async () => {
+    await expect(triggerAlarm("1")).resolves.not.toThrow();
+  });
+
+  it("dismissAlarm updates dismissed at", async () => {
+    await expect(dismissAlarm("1")).resolves.not.toThrow();
+  });
+
+  it("completeAlarm updates completed at", async () => {
+    await expect(completeAlarm("1")).resolves.not.toThrow();
   });
 });

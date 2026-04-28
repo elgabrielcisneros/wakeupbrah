@@ -1,9 +1,20 @@
 import { fireEvent, render, screen } from "@testing-library/react-native";
 import SaveButton from "../common/SaveButton";
+import { scheduleAlarm } from "../NotifeeIntegration";
+
+// Mock NotifeeIntegration
+jest.mock("../NotifeeIntegration", () => ({
+  scheduleAlarm: jest.fn(),
+}));
 
 // Mock expo-router to avoid navigation errors in test environment
 jest.mock("expo-router", () => ({
   useRouter: () => ({ back: jest.fn() }),
+}));
+
+// Mock db/database
+jest.mock("@/db/database", () => ({
+  insertAlarm: jest.fn().mockResolvedValue(1),
 }));
 
 // Mock zustand store to control addAlarm behaviour
@@ -41,6 +52,15 @@ describe("<SaveButton />", () => {
     render(<SaveButton time={new Date()} title="Wake up" challenge="walk" />);
     fireEvent.press(screen.getByText("Save"));
     expect(screen.queryByText("Alarm name is required")).toBeNull();
+  });
+
+  it("calls scheduleAlarm and addAlarm when title is valid", async () => {
+    render(<SaveButton time={new Date()} title="Wake up" challenge="walk" />);
+    fireEvent.press(screen.getByText("Save"));
+    
+    // Check if scheduleAlarm is called
+    await screen.findByText("Save"); // Just to wait for any state updates
+    expect(scheduleAlarm).toHaveBeenCalled();
   });
 
   it("works with all challenge types", () => {

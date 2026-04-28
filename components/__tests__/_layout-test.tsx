@@ -20,6 +20,9 @@ jest.mock("@/db/database", () => ({
 jest.mock("expo-drizzle-studio-plugin", () => ({
   useDrizzleStudio: jest.fn(),
 }));
+jest.mock("@/components/NotifeeIntegration", () => ({
+  initializeAlarmSystem: jest.fn(),
+}));
 
 let mockSetAlarms = jest.fn();
 
