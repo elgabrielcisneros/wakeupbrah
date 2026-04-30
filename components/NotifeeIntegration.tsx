@@ -1,10 +1,6 @@
-import {
-  completeAlarm as dbCompleteAlarm,
-  dismissAlarm as dbDismissAlarm,
-} from "@/db/database";
 import { Alarm, ChallengeType } from "@/infraestructure/types/alarm";
-import { useAlarmStore } from "@/store/useAlarmStore";
 import notifee, {
+  AndroidCategory,
   AndroidImportance,
   AndroidVisibility,
   AuthorizationStatus,
@@ -12,6 +8,7 @@ import notifee, {
   TimestampTrigger,
   TriggerType,
 } from "@notifee/react-native";
+import { router } from "expo-router";
 
 const CHANNEL_ID = "wakeupbrah-alarm";
 
@@ -26,21 +23,47 @@ async function checkNotificationPermission() {
   }
 }
 
-async function createAlarmChannel() {
+async function createAlarmNotificationChannel() {
   return await notifee.createChannel({
     id: CHANNEL_ID,
-    name: "Wakeupbrah Alarms",
-    sound: "wakey_wakey",
+    name: "Alarms Notifications",
     visibility: AndroidVisibility.PUBLIC,
     importance: AndroidImportance.HIGH,
     vibration: true,
-    description: "Alarm notifications - must complete challenge to dismiss",
+    description: "Firing alarms - must complete challenge to dismiss",
+    groupId: "alarms",
+  });
+}
+
+async function displayFullScreenAlarm() {
+  return await notifee.displayNotification({
+    android: {
+      channelId: CHANNEL_ID,
+      category: AndroidCategory.ALARM,
+      importance: AndroidImportance.HIGH, // Required for full-screen
+
+      fullScreenAction: {
+        // For custom component:
+        id: "default",
+        mainComponent: "AlarmFullScreen",
+      },
+      // asForegroundService: true,
+    },
+  });
+}
+
+async function createAlarmChannelGroup() {
+  await notifee.createChannelGroup({
+    id: "alarms",
+    name: "Alarms",
   });
 }
 
 export async function scheduleAlarm(alarm: Alarm) {
   await checkNotificationPermission();
-  await createAlarmChannel();
+  await createAlarmChannelGroup();
+  await createAlarmNotificationChannel();
+  await displayFullScreenAlarm();
 
   const now = new Date();
   const alarmTime = new Date(alarm.time);
@@ -77,6 +100,7 @@ export async function scheduleAlarm(alarm: Alarm) {
       android: {
         channelId: CHANNEL_ID,
         smallIcon: "ic_launcher",
+
         pressAction: {
           id: "dismiss-action",
         },
@@ -114,7 +138,9 @@ export async function scheduleAllEnabledAlarms(alarms: Alarm[]) {
 
 export async function initializeAlarmSystem() {
   await checkNotificationPermission();
-  await createAlarmChannel();
+  await createAlarmChannelGroup();
+  await createAlarmNotificationChannel();
+  await displayFullScreenAlarm();
 
   notifee.onForegroundEvent(async ({ type, detail }) => {
     const { notification, pressAction } = detail;
@@ -123,18 +149,14 @@ export async function initializeAlarmSystem() {
     if (!alarmId) return;
 
     if (type === EventType.PRESS) {
-      console.log("Alarm dismissed by user (foreground):", alarmId);
-      await dbDismissAlarm(alarmId);
-      useAlarmStore.getState().dismissAlarm(alarmId);
+      router.navigate("/pages/alarm-full-screen");
     }
 
     if (
       type === EventType.ACTION_PRESS &&
       pressAction?.id === "complete-action"
     ) {
-      console.log("Alarm completed by user:", alarmId);
-      await dbCompleteAlarm(alarmId);
-      useAlarmStore.getState().completeAlarm(alarmId);
+      router.navigate("/pages/alarm-full-screen");
     }
   });
 
@@ -145,18 +167,14 @@ export async function initializeAlarmSystem() {
     if (!alarmId) return;
 
     if (type === EventType.PRESS) {
-      console.log("Alarm notification pressed by user (background):", alarmId);
-      await dbDismissAlarm(alarmId);
-      useAlarmStore.getState().dismissAlarm(alarmId);
+      router.navigate("/pages/alarm-full-screen");
     }
 
     if (
       type === EventType.ACTION_PRESS &&
       pressAction?.id === "complete-action"
     ) {
-      console.log("Alarm challenge completed by user (background):", alarmId);
-      await dbCompleteAlarm(alarmId);
-      useAlarmStore.getState().completeAlarm(alarmId);
+      router.navigate("/pages/alarm-full-screen");
     }
   });
 }

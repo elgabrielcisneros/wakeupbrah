@@ -131,6 +131,10 @@ function RootLayoutNav() {
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="pages/add-alarm" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="pages/alarm-full-screen"
+          options={{ headerShown: false }}
+        />
       </Stack>
     </ThemeProvider>
   );
