@@ -4,6 +4,7 @@ import { Image, StyleSheet } from "react-native";
 import { Alarm } from "../../infraestructure/types/alarm";
 import { useAlarmStore } from "../../store/useAlarmStore";
 import "../../styles/global.css";
+import { cancelAlarm, scheduleAlarm } from "../NotifeeIntegration";
 import { Toggle } from "./Toggle";
 
 export default function AlarmItem({ alarm }: { alarm: Alarm }) {
@@ -16,6 +17,12 @@ export default function AlarmItem({ alarm }: { alarm: Alarm }) {
     updateAlarm({ ...alarm, status: newStatus });
     // 2. Persist to SQLite so the change survives a restart
     await updateAlarmStatus(alarm.id, newStatus === "enabled");
+    // 3. Cancel or re-schedule the Notifee trigger
+    if (newStatus === "disabled") {
+      await cancelAlarm(alarm.id);
+    } else {
+      await scheduleAlarm({ ...alarm, status: newStatus });
+    }
     console.info("Alarm status changed to:", newStatus);
   };
 

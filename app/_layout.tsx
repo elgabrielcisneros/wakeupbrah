@@ -10,11 +10,15 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 
-import { initializeAlarmSystem } from "@/components/NotifeeIntegration";
+import {
+  displayFullScreenAlarm,
+  initializeAlarmSystem,
+} from "@/components/NotifeeIntegration";
 import { useColorScheme } from "@/components/useColorScheme";
 import { db, getAlarms, initDatabase } from "@/db/database";
 import { getIconForType } from "@/infraestructure/types/alarm";
 import { useAlarmStore } from "@/store/useAlarmStore";
+import notifee from "@notifee/react-native";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -124,6 +128,23 @@ function RootLayoutNav() {
 
   useEffect(() => {
     initializeAlarmSystem();
+  }, []);
+
+  useEffect(() => {
+    const checkInitialNotification = async () => {
+      const initialNotification = await notifee.getInitialNotification();
+      if (initialNotification) {
+        const { notification } = initialNotification;
+        const alarmId = notification?.data?.alarmId as string;
+        const type = notification?.data?.type as string;
+
+        if (alarmId && type === "alarm-trigger") {
+          await displayFullScreenAlarm();
+        }
+      }
+    };
+
+    checkInitialNotification();
   }, []);
 
   return (
