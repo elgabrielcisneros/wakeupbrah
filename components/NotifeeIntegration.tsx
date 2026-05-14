@@ -1,8 +1,10 @@
+import { getAlarmById } from "@/db/database";
 import { Alarm, ChallengeType } from "@/infraestructure/types/alarm";
 import notifee, {
   AndroidCategory,
   AndroidImportance,
   AndroidVisibility,
+  EventDetail,
   EventType,
   TimestampTrigger,
   TriggerType,
@@ -106,69 +108,40 @@ export async function scheduleAlarm(alarm: Alarm) {
 }
 
 export async function cancelAlarm(alarmId: string) {
-  await notifee.cancelNotification(alarmId);
-}
-
-export async function scheduleAllEnabledAlarms(alarms: Alarm[]) {
-  for (const alarm of alarms) {
-    if (alarm.status === "enabled") {
-      await scheduleAlarm(alarm);
-    } else {
-      await cancelAlarm(alarm.id);
-    }
-  }
-}
-
-export async function checkScheduledAlarms(alarms: Alarm[]) {
-  for (const alarm of alarms) {
-    if (alarm.status === "disabled") {
-      await cancelAlarm(alarm.id);
-    }
-  }
+  await notifee.cancelTriggerNotification(alarmId);
+  console.info("stopped on foreground");
 }
 
 export async function initializeAlarmSystem() {
   await checkNotificationPermission();
   await createAlarmChannelGroup();
   await createAlarmNotificationChannel();
+}
 
+async function handleAlarmEvent(type: EventType, detail: EventDetail) {
+  const { notification } = detail;
+  const alarmId = notification?.data?.alarmId as string;
+
+  if (!alarmId) return;
+
+  const alarm = await getAlarmById(alarmId);
+
+  if (!alarm || !alarm.status) {
+    await cancelAlarm(alarmId);
+    return;
+  }
+
+  if (
+    type === EventType.DELIVERED ||
+    type === EventType.ACTION_PRESS ||
+    type === EventType.PRESS
+  ) {
+    displayFullScreenAlarm();
+  }
+}
+
+export function registerForegroundHandler() {
   notifee.onForegroundEvent(async ({ type, detail }) => {
-    const { notification, pressAction } = detail;
-    const alarmId = notification?.data?.alarmId as string;
-
-    if (!alarmId) return;
-
-    if (type === EventType.DELIVERED) {
-      displayFullScreenAlarm();
-    }
-
-    if (type === EventType.PRESS) {
-      displayFullScreenAlarm();
-    }
-
-    if (
-      type === EventType.ACTION_PRESS &&
-      pressAction?.id === "complete-action"
-    ) {
-      displayFullScreenAlarm();
-    }
-  });
-
-  notifee.onBackgroundEvent(async ({ type, detail }) => {
-    const { notification, pressAction } = detail;
-    const alarmId = notification?.data?.alarmId as string;
-
-    if (!alarmId) return;
-
-    if (type === EventType.PRESS) {
-      await displayFullScreenAlarm();
-    }
-
-    if (
-      type === EventType.ACTION_PRESS &&
-      pressAction?.id === "complete-action"
-    ) {
-      await displayFullScreenAlarm();
-    }
+    handleAlarmEvent(type, detail);
   });
 }

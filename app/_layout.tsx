@@ -12,6 +12,7 @@ import { useEffect } from "react";
 
 import {
   displayFullScreenAlarm,
+  registerForegroundHandler,
   initializeAlarmSystem,
 } from "@/components/NotifeeIntegration";
 import { useColorScheme } from "@/components/useColorScheme";
@@ -128,6 +129,7 @@ function RootLayoutNav() {
 
   useEffect(() => {
     initializeAlarmSystem();
+    registerForegroundHandler();
   }, []);
 
   useEffect(() => {
@@ -143,7 +145,6 @@ function RootLayoutNav() {
         }
       }
     };
-
     checkInitialNotification();
   }, []);
 

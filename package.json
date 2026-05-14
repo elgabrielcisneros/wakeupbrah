@@ -1,6 +1,6 @@
 {
   "name": "wakeupbrah",
-  "main": "expo-router/entry",
+  "main": "index.tsx",
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
