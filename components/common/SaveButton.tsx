@@ -69,9 +69,13 @@ export default function SaveButton({
       status: newAlarm.status === "enabled",
     });
 
-    scheduleAlarm(newAlarm);
+    // IMPORTANT: use the real DB id so the background event handler
+    // can look up the alarm correctly via getAlarmById().
+    const alarmWithRealId: Alarm = { ...newAlarm, id: id.toString() };
 
-    addAlarm({ ...newAlarm, id: id.toString() });
+    await scheduleAlarm(alarmWithRealId);
+
+    addAlarm(alarmWithRealId);
 
     router.back();
   }
