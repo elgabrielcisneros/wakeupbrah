@@ -1,6 +1,7 @@
 import { Text, View } from "@/components/Themed";
+import { FlashList } from "@shopify/flash-list";
 import React from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import challengesData from "../../assets/json/challenges.json";
 import {
   ChallengeType,
@@ -35,7 +36,7 @@ export default function ChallengeList({
       <View className="mb-4">
         <Text style={styles.challengesTitle}>Wake-up challenges</Text>
       </View>
-      <FlatList
+      <FlashList
         horizontal
         showsHorizontalScrollIndicator={false}
         style={styles.scrollView}
