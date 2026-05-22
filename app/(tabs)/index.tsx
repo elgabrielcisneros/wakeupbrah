@@ -2,8 +2,9 @@ import AlarmItem from "@/components/common/AlarmItem";
 import EmptyContent from "@/components/common/EmptyContent";
 import { View } from "@/components/Themed";
 import { useAlarmStore } from "@/store/useAlarmStore";
+import { FlashList } from "@shopify/flash-list";
 import React from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import "../../styles/global.css";
 
 export default function TabOneScreen() {
@@ -13,7 +14,7 @@ export default function TabOneScreen() {
     <View className="flex-1 p-5">
       {/* When we have content, show the list */}
       {alarms.length > 0 ? (
-        <FlatList
+        <FlashList
           data={alarms}
           renderItem={({ item }) => <AlarmItem alarm={item} />}
           ListEmptyComponent={<EmptyContent />}
