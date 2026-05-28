@@ -12,7 +12,6 @@ export default function TabOneScreen() {
 
   return (
     <View className="flex-1 p-5">
-      {/* When we have content, show the list */}
       {alarms.length > 0 ? (
         <FlashList
           data={alarms}

@@ -12,8 +12,8 @@ import { useEffect } from "react";
 
 import {
   displayFullScreenAlarm,
-  registerForegroundHandler,
   initializeAlarmSystem,
+  registerForegroundHandler,
 } from "@/components/NotifeeIntegration";
 import { useColorScheme } from "@/components/useColorScheme";
 import { db, getAlarms, initDatabase } from "@/db/database";
@@ -108,6 +108,7 @@ function RootLayoutNav() {
 
           return {
             ...alarm,
+            id: String(alarm.id),
             time: new Date(alarm.time),
             challenge: {
               type: challengeType as any,
